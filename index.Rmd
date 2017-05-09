@@ -19,7 +19,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE)
 ```
 
 ## R Resources
-- This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz
+- This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license)
 
 - It covers all the basic usage of R and is pretty up to date.
 
@@ -41,11 +41,6 @@ plot(rnorm(20), rnorm(20))
 # GGplot2 - Basics
 
 ## Grammar of graphics
-<div class="columns-2">
-```{r, out.width = "400px", echo=FALSE}
-knitr::include_graphics("images/grammerofgraphics.png")
-```
-
 Plots in R are now mostly made using GGplot2.
 
 Follows the "grammar of graphics" principle that plots can be made up from:
@@ -54,8 +49,6 @@ Follows the "grammar of graphics" principle that plots can be made up from:
 - Scales
 - Coordinate system
 - Annotations
-
-</div>
 
 
 -----
