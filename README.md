@@ -1,2 +1,4 @@
 # ggplotTraining
-Testing out push/pull github from platform with ggplot training materials
+Presentation on the basic usuage of ggplot2. 
+
+https://moj-analytical-services.github.io/ggplotTraining/
