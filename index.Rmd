@@ -43,7 +43,7 @@ plot(rnorm(20), rnorm(20))
 ## Grammar of graphics
 <div class="columns-2">
 ```{r, out.width = "400px", echo=FALSE}
-knitr::include_graphics("grammerofgraphics.png")
+knitr::include_graphics("images/grammerofgraphics.png")
 ```
 
 Plots in R are now mostly made using GGplot2.
@@ -202,7 +202,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet.
 
 ```{r, echo=FALSE, out.width="600px"}
-knitr::include_graphics("cheatsheet.png")
+knitr::include_graphics("images/cheatsheet.png")
 ```
 
 ## geom_smooth()
@@ -247,7 +247,7 @@ Rather than returning every observation, ggplot has summarised the data using th
 ---
 
 ```{r, echo=FALSE}
-knitr::include_graphics("transform.png")
+knitr::include_graphics("images/transform.png")
 ```
 
 ---
@@ -266,6 +266,7 @@ ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
 
 You can control ggplot transformation more precisely by issuing the `stat_` command. Here are a few examples: Mean, min and max values in one plot.
 ```{r, fig.height=4}
+#install.packages('Hmisc')
 ggplot(data=mpg, aes( x=class, y=hwy))+
   stat_summary(fun.y=mean,
                fun.ymin=min,
