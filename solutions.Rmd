@@ -1,0 +1,132 @@
+---
+title: "Data visualization in R: Solutions"
+author: "Will Bowditch"
+date: "10 February 2017"
+output:
+  ioslides_presentation:
+    highlight: zenburn
+    keep_md: no
+    smaller: yes
+    widescreen: yes
+  slidy_presentation:
+    highlight: tango
+---
+
+```{r, include=FALSE}
+require(knitr)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=FALSE)
+require(tidyverse)
+data(mpg)
+
+```
+
+## 1
+
+```{r}
+ggplot(data=mpg)
+```
+
+##2
+```{r, echo=TRUE}
+?mpg
+```
+
+
+##3 
+Make a scatter plot of `hwy` vs. `cty`
+
+```{r, fig.height=3}
+ggplot(data=mpg, aes(x=hwy, y=cty))+
+  geom_point()
+```
+
+##4
+Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
+
+Note, `qplot` can be used for quick plotting with less customisation. 
+```{r, fig.height=3}
+qplot(mpg$class, mpg$drv, geom='point')
+```
+
+## 5 {}
+
+ What's wrong with this code? Why aren't the points blue?
+<div class="columns-2">
+```{r, fig.height=3, fig.width=5}
+ggplot(data = mpg)+
+  geom_point(aes(x=displ, y=hwy, color = "blue"))
+
+ggplot(data = mpg)+
+  geom_point(aes(x=displ, y=hwy), color = "blue")
+
+
+```
+</div>
+
+
+## 6 
+
+Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables? Hint: use `glimpse(mpg)` to identify variable types.
+
+
+<div class="columns-2">
+```{r, fig.height=3, fig.width=4}
+ggplot(data=mpg, aes(x=displ, y=hwy, color=cty))+
+  geom_point()
+```
+
+```{r, fig.height=3, fig.width=4}
+ggplot(data=mpg, aes(x=displ, y=hwy, color=drv))+
+  geom_point()
+```
+
+</div>
+
+## 7
+
+- What happens if you map the same variable to multiple aesthetics?
+
+```{r,fig.height=3}
+ggplot(data=mpg, aes(x=displ, y=hwy, color=drv, shape=drv))+
+  geom_point()
+```
+
+## 8 
+
+- What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ <5)`
+
+```{r, fig.height=3}
+ggplot(data = mpg, aes(x= displ, y=hwy, color = displ <5))+
+  geom_point()
+```
+
+## 9
+
+You may have got this instead:
+```{r, fig.height = 3}
+ggplot(data = mpg, aes(x=displ, y=hwy, color=class))+
+  geom_smooth()+
+  geom_point()
+```
+
+---
+
+Code to reproduce plot:
+```{r, fig.height = 3}
+ggplot(data = mpg, aes(x=displ, y=hwy))+
+  geom_smooth()+
+  geom_point(aes(color=class))
+```
+
+
+
+## 10
+
+Produce a **scatter plot** between **displ** and **hwy** that uses `stat_smooth()` with a **general linear model** line of best fit.
+
+```{r, fig.height=3}
+ggplot(data = mpg, aes(x=displ, y=hwy))+
+  geom_point()+
+  stat_smooth(method='glm')
+```
+
