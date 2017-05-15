@@ -70,12 +70,20 @@ Map a continuous variable to `color`, `size` and `shape`. How do these aesthetic
 
 
 <div class="columns-2">
+<<<<<<< HEAD
 ```{r, fig.height=3, fig.width=4}
+=======
+```{r, fig.height=3}
+>>>>>>> f25f2dcb975baf7428e6a220ed6a9819ceec9af9
 ggplot(data=mpg, aes(x=displ, y=hwy, color=cty))+
   geom_point()
 ```
 
+<<<<<<< HEAD
 ```{r, fig.height=3, fig.width=4}
+=======
+```{r, fig.height=3}
+>>>>>>> f25f2dcb975baf7428e6a220ed6a9819ceec9af9
 ggplot(data=mpg, aes(x=displ, y=hwy, color=drv))+
   geom_point()
 ```
@@ -124,7 +132,11 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 
 Produce a **scatter plot** between **displ** and **hwy** that uses `stat_smooth()` with a **general linear model** line of best fit.
 
+<<<<<<< HEAD
 ```{r, fig.height=3}
+=======
+```{r}
+>>>>>>> f25f2dcb975baf7428e6a220ed6a9819ceec9af9
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point()+
   stat_smooth(method='glm')
