@@ -1,5 +1,5 @@
 ---
-title: "Data visualization in R"
+title: "Charting in R"
 author: "Will Bowditch"
 date: "10 February 2017"
 output:
@@ -192,7 +192,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 # Other geoms
 
 ## Geoms
-There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet.
+There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet. This can be found at https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
 
 ```{r, echo=FALSE, out.width="600px"}
 knitr::include_graphics("images/cheatsheet.png")
@@ -442,6 +442,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy, colour=year))+
 ```
 
 ---
+
 You can also specify things manually. Hint use `colors()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
 
 ```{r, fig.height=3, fig.retina=2}
@@ -451,8 +452,6 @@ ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')),
   scale_color_manual(values = c("audi" = "#28b7b7", "volkswagen"="violet"))+
   scale_shape_manual(values = c("audi" = 1, "volkswagen" = 24))
 ```
-
-
 
 ## Labels
 
@@ -465,5 +464,23 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_text_repel(aes(label = rownames(mtcars))) +
   theme_classic(base_size=10)
 ```
+
+## Resources
+
+### References
+
+- Cheatsheet: https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+- Quick reference: http://r-statistics.co/ggplot2-cheatsheet.html
+
+### Extras
+
+- Extensions gallery: http://www.ggplot2-exts.org/gallery/
+
+### Alternatives
+
+- qplot: the ggplot2 library has a quick plotting function, qplot(). It is similar to (but a bit nicer than) the base plot() function, and can be useful for creating plots quickly. It is still recommended to use ggplot() function as it is easier to create complex plots. Find out more about qplot here: http://ggplot2.tidyverse.org/reference/qplot.html
+- Plotly: Plotly is a Javascript framework for creating interactive charts. The plotly R library has its own grammar for constructing charts, with power and flexibility rivalling that of ggplot2. However, it also has a function, ggplotly(), which can turn a ggplot chart into an interactive chart. Find out more here: https://plot.ly/r/
+
+
 
 # Any questions? 
