@@ -1,7 +1,7 @@
 ---
 title: "Charting in R"
-author: "Will Bowditch"
-date: "10 February 2017"
+author: ""
+date: ""
 output:
   ioslides_presentation:
     highlight: zenburn
@@ -464,6 +464,16 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_text_repel(aes(label = rownames(mtcars))) +
   theme_classic(base_size=10)
 ```
+
+## Saving plots
+
+Most of the time plots will be created directly into an R Markdown output, or a shiny app. However plots can also be saved as image (png) file:
+
+* 'Export' button in RStudio viewer
+ 
+* ggsave(filename = "plotname.png", plot = myplot) - saves the plot into your current working directory in R Studio. Can then be downloaded from the platform via 'More' -> 'Export...'
+
+In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
 ## Resources
 
