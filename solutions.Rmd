@@ -214,7 +214,7 @@ ggplot(data = mpg) +
 
 ## 12
 
-Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a Wall Street Journal theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
+Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a google docs theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
 
 Change the title and axis labels to something sensible based on what the chart is showing.
 
@@ -222,7 +222,7 @@ Change the title and axis labels to something sensible based on what the chart i
 
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
-  theme_wsj() +
+  theme_gdocs() +
   labs(title = "Fuel efficiency comparison between city and highway", 
        x = "Highway efficiency", y = "City efficiency")
 
@@ -230,7 +230,8 @@ ggplot(data = mpg) +
 
 ---
 
-Create a custom theme changing: major gridlines to blue; x axis font colour to red and y axis font colour to purple; move the legend position to the bottom of the plot.
+Create a custom theme changing: major gridlines to grey, dashed; removing minor gridlines; x and y axis text to black, pt 10, italic; move the legend position to the bottom of the plot.
+
 
 ```{r, fig.height = 3}
 
@@ -239,9 +240,9 @@ ggplot(data = mpg) +
   labs(title = "Fuel efficiency comparison between city and highway", 
        x = "Highway efficiency", 
        y = "City efficiency") +
-  theme(panel.grid.major = element_line(colour = "blue"),
-        axis.text.x = element_text(colour = "red"),
-        axis.text.y = element_text(colour = "purple"),
+  theme(panel.grid.major = element_line(colour = "grey", linetype = "dashed"),
+        panel.grid.minor = element_blank(),
+        axis.text = element_text(colour = "black", size = 10, face = "italic"),
         legend.position = "bottom")
 
 ```
@@ -259,7 +260,9 @@ ggplot(data = mpg) +
   labs(title = "Fuel efficiency comparison between city and highway", 
        x = "Highway efficiency", 
        y = "City efficiency") +
-  xlim(0,50) + ylim(0,40) +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  expand_limits(x = c(0, 50), y = c(0, 40)) +
   scale_colour_discrete(labels = c("Four", "Five", "Six", "Eight"), name = "Number of Cylinders")
 
 ```
@@ -270,26 +273,44 @@ Plot a line chart to show change in city efficiency between the two years, with 
 
 Use the viridis scale to colour the lines for a black and white friendly printed version.
 
-```{r, fig.height = 3}
+```{r, eval = FALSE}
 
 mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
 
 ggplot(data = mpg_group) + 
   geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
-  scale_color_viridis_d()
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
 
 ```
 
 ---
 
+```{r, fig.height = 6, echo = FALSE}
+
+mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
+
+ggplot(data = mpg_group) + 
+  geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
+```
+
+
+---
+
 Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
 
-```{r, fig.height = 3}
+```{r, fig.height = 4}
 
 ggplot(data = mpg_group) + 
   geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class), size = 1.25) +
   scale_color_viridis_d() +
-  scale_linetype_manual(values = c(4,1,6,2,3,5,9))
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_linetype_manual(values = c(4,1,6,2,3,5,9)) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
 
 ```
 

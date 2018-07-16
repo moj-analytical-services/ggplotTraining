@@ -245,7 +245,7 @@ Rather than returning every observation, ggplot has summarised the data using th
 
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width = "800px", out.height = "400px"}
 knitr::include_graphics("images/transform.png")
 ```
 
@@ -456,13 +456,14 @@ grid.arrange(plot2+theme_excel(), plot2+theme_gdocs(), plot2+theme_economist(), 
 
 ##Exercises
 
-1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a Wall Street Journal theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
+1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a google docs theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
 
 2. Change the title and axis labels to something sensible based on what the chart is showing.
 
 3. Create a custom theme changing:
-* major gridlines to blue
-* x axis font colour to red and y axis font colour to purple
+* major gridlines to grey, dashed
+* removing minor gridlines
+* x and y axis text to black, pt 10, italic
 * move the legend position to the bottom of the plot
 
 ###Extensions:
