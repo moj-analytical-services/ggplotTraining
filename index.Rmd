@@ -18,6 +18,19 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE)
 
 ```
 
+## Aims and objective
+
+### Aim:
+
+Expose you to the "grammar of graphics", to allow you create fancy charts in R
+
+### Objectives:
+
+- Introduce ggplot2
+- Understand the grammar of constructing charts
+- Practise creating plots yourself
+- Signpost resources
+
 ## R Resources
 - This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license)
 
