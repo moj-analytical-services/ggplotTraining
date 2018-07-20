@@ -24,7 +24,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE)
 - It covers all the basic usage of R and is pretty up to date.
 
 ## Basic plots
-- I'm going to ignore the built in plotting functions, as a package called ggplot2 has become the modern standard in R.
+- Base R has some basic plotting functionality, as illustrated here and on the following slide. However, it's quite limited in facility, and the current standard is to use the ggplot2 library, which provides a powerful grammar for creating charts.
 
 Should you need them, the built in plot features can be called with
 
@@ -53,18 +53,23 @@ Follows the "grammar of graphics" principle that plots can be made up from:
 
 -----
 
-
-
-With a bit of luck you'll already have it installed, so we just need to load the library.
+ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science. You can load it in R as so:
 
 ```{r, highlight=TRUE}
 library(tidyverse)
 ```
 
-If you haven't installed a package on DOM1 yet, you may experience some issues if you haven't setup a new library on your local drive.
+Alternatively you can import ggplot2 directly:
+
+```{r, highlight=TRUE}
+library(ggplot2)
+```
+
+
 
 ## Loading the data
-For this intro I'll use a built in data set `mpg` that contains information on cars fuel efficiency. We can use `glimpse(mpg)` or `head(mpg)` or `mpg` to have a quick look at the data.   
+
+For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package. It contains information on cars fuel efficiency. We can use `glimpse(mpg)` or `head(mpg)` or `mpg` to have a quick look at the data.   
 ```{r}
 data(mpg) #load the mpg dataset
 glimpse(mpg)
@@ -73,12 +78,19 @@ glimpse(mpg)
 `displ` contains the cars engine size
 `hwy` contains the cars fuel efficiency on the motorway, low scores = more fuel consumption
 
----
+## Graphing template
+
+The basic pattern of a ggplot function looks like this:
+
+```{r eval = FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
 
 A ggplot object must contain
 
 - the data to be plotted
-- how that data should be mapped to the coordinate system, defined using `aes()` (short for aesthetics). Here we use x and y axis.
+- how that data should be mapped to the coordinate system, defined using `aes()` (short for aesthetics).
 - a geometric to draw the aesthetics with
 
 ---
@@ -144,7 +156,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
 
 ---
 
-You don't *have* to map aesthetics onto variables, you can specify them manually. For example, you can define the colour of the points:
+You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
 
 ```{r}
 ggplot(data = mpg, aes(x=displ, y=hwy))+
@@ -259,7 +271,6 @@ ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
 
 You can control ggplot transformation more precisely by issuing the `stat_` command. Here are a few examples: Mean, min and max values in one plot.
 ```{r, fig.height=4}
-#install.packages('Hmisc')
 ggplot(data=mpg, aes( x=class, y=hwy))+
   stat_summary(fun.y=mean,
                fun.ymin=min,
@@ -459,9 +470,9 @@ With the ggrepel package you can add labels to points that automatically dodge e
 
 ```{r, fig.height=3, fig.retina=2}
 require(ggrepel)
-ggplot(mtcars, aes(wt, mpg)) +
+ggplot(mpg, aes(displ, hwy)) +
   geom_point(color = 'red') +
-  geom_text_repel(aes(label = rownames(mtcars))) +
+  geom_text_repel(aes(label = rownames(mpg))) +
   theme_classic(base_size=10)
 ```
 
