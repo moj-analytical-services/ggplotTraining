@@ -1,7 +1,7 @@
 ---
-title: "Data visualization in R: Solutions"
-author: "Will Bowditch"
-date: "10 February 2017"
+title: "R Charting: Solutions"
+author: ""
+date: ""
 output:
   ioslides_presentation:
     highlight: zenburn
@@ -16,6 +16,7 @@ output:
 require(knitr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=FALSE)
 require(tidyverse)
+require(ggthemes)
 data(mpg)
 
 ```
@@ -47,6 +48,17 @@ Note, `qplot` can be used for quick plotting with less customisation.
 ```{r, fig.height=3}
 qplot(mpg$class, mpg$drv, geom='point')
 ```
+
+---
+
+To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and colour the points by `drv` (more on this in the next section)
+
+```{r}
+
+ggplot(data = mpg) + geom_point(mapping = aes(x = class, y = cty, colour = drv))
+
+```
+
 
 ## 5
 
@@ -86,7 +98,7 @@ ggplot(data=mpg, aes(x=displ, y=hwy, color=drv))+
 
 ## 7
 
-- What happens if you map the same variable to multiple aesthetics?
+What happens if you map the same variable to multiple aesthetics?
 
 ```{r,fig.height=3}
 ggplot(data=mpg, aes(x=displ, y=hwy, color=drv, shape=drv))+
@@ -95,7 +107,7 @@ ggplot(data=mpg, aes(x=displ, y=hwy, color=drv, shape=drv))+
 
 ## 8 
 
-- What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ <5)`
+What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ <5)`
 
 ```{r, fig.height=3}
 ggplot(data = mpg, aes(x= displ, y=hwy, color = displ <5))+
@@ -120,6 +132,15 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point(aes(color=class))
 ```
 
+---
+
+Extension:
+```{r, fig.height = 3}
+ggplot(data = mpg, aes(x=displ, y=hwy))+
+  geom_smooth(se = FALSE, linetype = "dotted", colour = "black")+
+  geom_point(aes(color=class))
+```
+
 
 
 ## 10
@@ -131,5 +152,165 @@ Produce a **scatter plot** between **displ** and **hwy** that uses `stat_smooth(
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point()+
   stat_smooth(method='glm')
+```
+
+---
+
+Extension: Create a boxplot of city full efficiency by manufacturer. Expirement with changing the whisker length; change the colour of the outliers to red; and vary the width of the boxes proportional to the number of observations (hint: use ?stat_boxplot).
+
+```{r}
+
+ggplot(data=mpg, aes( x=manufacturer, y=cty)) +
+   stat_boxplot(coef = 1, outlier.colour = "red", varwidth = TRUE)
+
+```
+
+
+##11
+
+Using the mpg dataset create a bar chart showing a count of the dataset grouped by class of car.
+
+```{r, eval=FALSE}
+
+ggplot(data = mpg) + geom_bar(mapping = aes(x = class))
+
+```
+
+Now specify a y co-ordinate mapping to show the average fuel displacement of each class of car.
+
+  
+```{r, fig.height = 2.7}
+
+ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ), stat = "summary", fun.y = "mean")
+
+```
+
+---
+
+Add a fill to the bars to show the average split by the type of drive of each class of car. 
+
+  
+```{r, fig.height = 3}
+
+ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
+                              fun.y = "mean", position = "dodge")
+
+```
+
+---
+
+Extension: Manually change the colours of the fill being used. Also change the font size and angle of the x axis text labels so that these can be read in the viewer.
+
+
+```{r, fig.height = 3}
+
+ggplot(data = mpg) + 
+  geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
+           fun.y = "mean", position = "dodge") +
+  theme(axis.text.x = element_text(angle = 90, size = 8)) + 
+  scale_fill_manual(values = c("blue", "darkblue", "blueviolet"))
+
+```
+
+## 12
+
+Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a google docs theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
+
+Change the title and axis labels to something sensible based on what the chart is showing.
+
+```{r, fig.height = 3}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
+  theme_gdocs() +
+  labs(title = "Fuel efficiency comparison between city and highway", 
+       x = "Highway efficiency", y = "City efficiency")
+
+```
+
+---
+
+Create a custom theme changing: major gridlines to grey, dashed; removing minor gridlines; x and y axis text to black, pt 10, italic; move the legend position to the bottom of the plot.
+
+
+```{r, fig.height = 3}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
+  labs(title = "Fuel efficiency comparison between city and highway", 
+       x = "Highway efficiency", 
+       y = "City efficiency") +
+  theme(panel.grid.major = element_line(colour = "grey", linetype = "dashed"),
+        panel.grid.minor = element_blank(),
+        axis.text = element_text(colour = "black", size = 10, face = "italic"),
+        legend.position = "bottom")
+
+```
+
+---
+
+Try changing the x and y axis so that the scale starts at zero. 
+
+Change the title of the legend to 'Number of Cylinders' and re-name the labels with the text version of the number (e.g. 'four' instead of '4')
+
+```{r, fig.height = 3}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
+  labs(title = "Fuel efficiency comparison between city and highway", 
+       x = "Highway efficiency", 
+       y = "City efficiency") +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  expand_limits(x = c(0, 50), y = c(0, 40)) +
+  scale_colour_discrete(labels = c("Four", "Five", "Six", "Eight"), name = "Number of Cylinders")
+
+```
+
+## 13
+
+Plot a line chart to show change in city efficiency between the two years, with a different line colour and line type for each class. Make sure you specify the dataset as mpg_group. 
+
+Use the viridis scale to colour the lines for a black and white friendly printed version.
+
+```{r, eval = FALSE}
+
+mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
+
+ggplot(data = mpg_group) + 
+  geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
+
+```
+
+---
+
+```{r, fig.height = 6, echo = FALSE}
+
+mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
+
+ggplot(data = mpg_group) + 
+  geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
+```
+
+
+---
+
+Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
+
+```{r, fig.height = 4}
+
+ggplot(data = mpg_group) + 
+  geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class), size = 1.25) +
+  scale_color_viridis_d() +
+  scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
+  scale_linetype_manual(values = c(4,1,6,2,3,5,9)) +
+  scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
+
 ```
 
