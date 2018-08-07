@@ -331,8 +331,8 @@ You can use these stats to enhance descriptive charts. For example, by adding co
 
 ```{r}
 ggplot(data=mpg, aes(x=class, y=hwy, fill=class))+
-  stat_summary(fun.data="mean_cl_boot", geom="errorbar", width=.25)+
-  stat_summary(fun.y="mean", geom='bar')
+  stat_summary(fun.y="mean", geom='bar') +
+  stat_summary(fun.data="mean_cl_boot", geom="errorbar", width=.25)
 ```
 
 
@@ -535,17 +535,6 @@ mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% s
 
 3. Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
 
-## Labels
-
-With the ggrepel package you can add labels to points that automatically dodge each other.
-
-```{r, fig.height=3, fig.retina=2}
-require(ggrepel)
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(color = 'red') +
-  geom_text_repel(aes(label = rownames(mpg))) +
-  theme_classic(base_size=10)
-```
 
 ## Saving plots
 
