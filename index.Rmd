@@ -481,6 +481,7 @@ grid.arrange(plot2+theme_excel(), plot2+theme_gdocs(), plot2+theme_economist(), 
 ##Exercises
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a google docs theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
+*Hint* you will need to use `as.factor(cyl)` rather than just `cyl` when mapping the colour.
 
 2. Change the title and axis labels to something sensible based on what the chart is showing.
 
