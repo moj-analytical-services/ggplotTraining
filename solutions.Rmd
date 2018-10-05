@@ -271,15 +271,13 @@ ggplot(data = mpg) +
 
 Plot a line chart to show change in city efficiency between the two years, with a different line colour and line type for each class. Make sure you specify the dataset as mpg_group. 
 
-Use the viridis scale to colour the lines for a black and white friendly printed version.
-
 ```{r, eval = FALSE}
 
+library(dplyr)
 mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
 
 ggplot(data = mpg_group) + 
   geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
-  scale_color_viridis_d() +
   scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
   scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
 
@@ -293,7 +291,6 @@ mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% s
 
 ggplot(data = mpg_group) + 
   geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class)) +
-  scale_color_viridis_d() +
   scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
   scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
 ```
@@ -307,7 +304,6 @@ Experiment with changing the line types manually, and changing the thickness of 
 
 ggplot(data = mpg_group) + 
   geom_line(mapping = aes(x = year, y = cty, colour = class, linetype = class), size = 1.25) +
-  scale_color_viridis_d() +
   scale_x_continuous(breaks = c(1999, 2008), labels = c("1999", "2008")) +
   scale_linetype_manual(values = c(4,1,6,2,3,5,9)) +
   scale_y_continuous(limits = c(10,22.5), breaks = seq(10, 22.5, 2.5))
