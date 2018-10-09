@@ -238,12 +238,13 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 
 ---
 
-We can add the points as well, using the + operator. Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line.
+We can add the points as well, using the + operator; and have added a line break using `geom_line` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
 
 ```{r, fig.height=4}
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_smooth()+
-  geom_point()
+  geom_point() +
+  geom_line(aes(x = 4.5))
 ```
 
 ## Exercise
@@ -258,6 +259,49 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 
 Extension: Try removing the confidence interval from the smooth line. Also try changing the linetype to dashed or dotted.
 
+##Stats and Geoms
+
+Both geoms and stats can be used to make plots in the R package ggplot2, and they will give corresponding results. The difference between geoms and stats can be summarised as follows:
+
+- geoms stand for 'geometric objects' - these are the core elements that you see on the plot; objects like lines, curves, points, areas.
+
+- stats stand for 'statistical transformations' - these objects summarise the data in different ways, to map the data to the chosen geom in the chosen way
+
+In general, equivalent plots can be created using either a 'stat' layer or a 'geom' layer. **Every geom has a default stat, and every stat has a default geom.**
+
+For most of the time you will want to use the default stat for a chosen geom (or vice versa), but sometimes we will want to specify this explicitly, as in the next example.
+
+---
+
+As an example, the stat `stat_summary` is the statistical transformation that provides a statistical summary of the chosen variable, including mean/median/mode, max/min, quartiles. The default geom for this stat is the `geom_pointrange` - which shows the median value as a point, and lines to indicate the range of values recorded by the variable.
+
+Thus we can create the same graph using two different approaches in ggplot:
+
+**1 - stat_summary**
+```{r, fig.height = 2.5}
+
+ggplot(data = mpg)+
+  stat_summary(mapping = aes(x = class, y = hwy),
+               fun.ymin = min, fun.ymax = max,
+               fun.y = median)
+```
+
+---
+
+Note that when using stat_summary we also have to select what function we want to apply to the y variable - here we are looking at the range of values around the median, and specify functions as appropriate. When using stat_summary in general you will need to specify a function transformation for the y variable (this is not always true of other stats).
+
+The same graph can be created using the geom command:
+
+**2 - geom_pointrange**
+```{r, fig.height = 2.5}
+
+ggplot(data = mpg)+
+  geom_pointrange(mapping = aes(x = class, y = hwy),
+                  fun.ymin = min, fun.ymax = max, 
+                  fun.y = median,
+                  stat = "summary")
+```
+
 ## Bar charts
 Some geoms plot raw data (like `geom_point()`) others perform transformations in the background. We've already seen this with `geom_smooth()`. Look at what happens when we plot a bar chat of vehicle class.
 
@@ -266,7 +310,7 @@ ggplot(data=mpg, aes(x=class))+
   geom_bar()
 ```
 
-Rather than returning every observation, ggplot has summarised the data using the count statistic. This is because this is the default behaviour for a bar chart. The same chart can be produced using `ggplot(data=mpg, aes(x=class))+stat_count()`. In general, every stat_ function has a default geom, and every geom_ function has a default stat.
+Rather than returning every observation, ggplot has summarised the data using the count statistic. This is because this is the default behaviour for a bar chart - `stat_count` is the default stat for `geom_bar`. The same chart can therefore be produced using `ggplot(data=mpg, aes(x=class)) + stat_count()`. 
 
 ---
 
@@ -274,21 +318,25 @@ Rather than returning every observation, ggplot has summarised the data using th
 knitr::include_graphics("images/transform.png")
 ```
 
----
+You may not want to use the default stat... you can override the defaults by specifying a stat. Stats can be called as we have already seen using `stat_` to specify the statistical transformation.
 
-You may not want to use the default stat... you can override the defaults by specifying a stat. Stats can be called using `stat_` or the shorthand `y=..stat..`
+In cases where we just have an x variable (e.g. for a simple bar chart), we can also just specify the stat we want as a y co-ordinate mapping. For example, in the aes mapping we simply call `y = stat(count)` for a basic count of the x variable, `y = stat(mean)` for the mean, `y = stat(prop)` for the proportion of observations in each x category, etc.
+
+---
 
 ```{r, fig.height=2}
 #Proportion chart
 #Set group=1 and y=..prop.. to get relative propotion
-ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
+ggplot(data=mpg, aes(x=class, y=stat(prop), group=1))+
   geom_bar()
 
 ```
 
+In earlier versions of ggplot2 (v3.0.0 backwards) the `stat()` command used above was not in use, and if you have an earlier version of ggplot2 you will need to bear this in mind. In the earlier versions of ggplot2, a command using two full stops before and after the word is used - for example `..prop..`, `..count..`, etc.
+
 ---
 
-You can control ggplot transformation more precisely by issuing the `stat_` command. Here are a few examples: Mean, min and max values in one plot.
+You can control ggplot transformation more precisely by using the `stat_` command, as previously illustrated. Here are a few examples: Mean, min and max values in one plot. Note that we override the default geom by specifying this specifically as an argument.
 ```{r, fig.height=4}
 ggplot(data=mpg, aes( x=class, y=hwy))+
   stat_summary(fun.y=mean,
@@ -527,14 +575,13 @@ ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')),
 Run the below code to create a new subset of the mpg dataset
 
 ```{r}
+library(dplyr)
 mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% summarise_all(mean)
 ```
 
 1. Plot a line chart to show change in city efficiency between the two years, with a different line colour and line type for each class. Make sure you specify the dataset as mpg_group (as created above)
 
-2. Use the viridis scale to colour the lines for a black and white friendly printed version.
-
-3. Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
+2. Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
 
 
 ## Saving plots
