@@ -295,8 +295,6 @@ The same graph can be created using the geom command:
 **2 - geom_pointrange**
 ```{r, fig.height = 2.5}
 
-
-
 ggplot(data = mpg)+
   geom_pointrange(mapping = aes(x = class, y = hwy),
                   fun.ymin = min, fun.ymax = max, 
@@ -320,19 +318,21 @@ Rather than returning every observation, ggplot has summarised the data using th
 knitr::include_graphics("images/transform.png")
 ```
 
----
-
 You may not want to use the default stat... you can override the defaults by specifying a stat. Stats can be called as we have already seen using `stat_` to specify the statistical transformation.
 
 In cases where we just have an x variable (e.g. for a simple bar chart), we can also just specify the stat we want as a y co-ordinate mapping. For example, in the aes mapping we simply call `y = stat(count)` for a basic count of the x variable, `y = stat(mean)` for the mean, `y = stat(prop)` for the proportion of observations in each x category, etc.
 
+---
+
 ```{r, fig.height=2}
 #Proportion chart
 #Set group=1 and y=..prop.. to get relative propotion
-ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
+ggplot(data=mpg, aes(x=class, y=stat(prop), group=1))+
   geom_bar()
 
 ```
+
+In earlier versions of ggplot2 (v3.0.0 backwards) the `stat()` command used above was not in use, and if you have an earlier version of ggplot2 you will need to bear this in mind. In the earlier versions of ggplot2, a command using two full stops before and after the word is used - for example `..prop..`, `..count..`, etc.
 
 ---
 
