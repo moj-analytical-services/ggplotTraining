@@ -214,7 +214,7 @@ ggplot(data = mpg) +
 
 ## 12
 
-Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a google docs theme from the ggthemes package; and colour the points based on the number of cylinders the car has.
+Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
 
 Change the title and axis labels to something sensible based on what the chart is showing.
 
@@ -222,7 +222,7 @@ Change the title and axis labels to something sensible based on what the chart i
 
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
-  theme_gdocs() +
+  theme_minimal() +
   labs(title = "Fuel efficiency comparison between city and highway", 
        x = "Highway efficiency", y = "City efficiency")
 
@@ -232,14 +232,11 @@ ggplot(data = mpg) +
 
 Create a custom theme changing: major gridlines to grey, dashed; removing minor gridlines; x and y axis text to black, pt 10, italic; move the legend position to the bottom of the plot.
 
-
 ```{r, fig.height = 3}
 
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl))) + 
-  labs(title = "Fuel efficiency comparison between city and highway", 
-       x = "Highway efficiency", 
-       y = "City efficiency") +
+  labs(title = "Fuel efficiency comparison between city and highway", x = "Highway efficiency", y = "City efficiency") +
   theme(panel.grid.major = element_line(colour = "grey", linetype = "dashed"),
         panel.grid.minor = element_blank(),
         axis.text = element_text(colour = "black", size = 10, face = "italic"),
