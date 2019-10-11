@@ -140,7 +140,7 @@ ggplot(data = mpg)+
 3. Make a scatter plot of `hwy` vs. `cty`
 4. Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
 
-###Extension
+### Extension
 
 To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and colour the points by `drv` (more on this in the next section)
 
@@ -293,8 +293,9 @@ The topics for the second part will include:
    - Chart Positioning 
    - Themes, titles and Multiple Plots
   
+---
 
-##Stats and Geoms
+## Stats and Geoms
 
 Both geoms and stats can be used to make plots in the R package ggplot2, and they will give corresponding results. The difference between geoms and stats can be summarized as follows:
 
@@ -381,11 +382,13 @@ ggplot(data=mpg, aes(x=manufacturer, fill=class))+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
 ```
 
-##Exercises
+---
 
-1. Using the mpg dataset create a bar chart showing a count of the dataset grouped by class of car.
+## Exercises
 
-2. Now specify a y co-ordinate mapping to show the average fuel displacement of each class of car. 
+1. Using the mpg dataset create a bar chart showing a count of the dataset grouped by 'class' of car.
+
+2. Now specify a y co-ordinate mapping to show the average fuel displacement (displ) of each 'class' of car. 
 
 *Hint* you will need the following arguments inside the 'geom_bar' call (as well as your x and y mapping):
 
@@ -480,7 +483,7 @@ plot2+ugly.theme
 ```
 
 
-##Exercises
+## Exercises
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
 
@@ -604,7 +607,7 @@ ggplot(data=mpg, aes(x=class, y=hwy, fill=class))+
 - Produce a **scatter plot** between **displ** and **hwy** that uses `stat_smooth()` with a **general linear model** line of best fit.
 - Hint: run `?stat_smooth()` to open the documentation for `stat_smooth()`, see how the transformation can be controlled.
 
-###Extension
+### Extension
 
 - Create a boxplot of city full efficiency by manufacturer. 
 
@@ -640,7 +643,7 @@ mpg_group    <- mpg %>% select(class, year, cty) %>% group_by(class, year) %>% s
 
 2. Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
 
-###Bar Chart positioning 
+### Bar Chart positioning 
 
 Manually change the colours of the fill being used in the exercise in slide 33. Also change the font size and angle of the x axis text labels so that these can be read in the viewer.
 
