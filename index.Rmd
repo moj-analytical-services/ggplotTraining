@@ -60,6 +60,7 @@ Should you need them, the built in plot features can be called with
 ----------
 
 ```{r}
+#Basic Plot
 plot(rnorm(20), rnorm(20))
 ```
 
@@ -81,12 +82,15 @@ Follows the "grammar of graphics" principle that plots can be made up from:
 ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science. You can load it in R as so:
 
 ```{r, highlight=TRUE}
+# load ggplot2 library as part of tidyverse  
 library(tidyverse)
 ```
 
 Alternatively you can import ggplot2 directly:
 
 ```{r, highlight=TRUE}
+# load ggplot2 library on its own
+
 library(ggplot2)
 ```
 
@@ -96,6 +100,8 @@ library(ggplot2)
 
 For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package. It contains information on cars fuel efficiency. We can use `glimpse(mpg)` or `head(mpg)` or `mpg` to have a quick look at the data.   
 ```{r}
+#load the mpg dataset
+
 data(mpg) #load the mpg dataset
 glimpse(mpg)
 ```
@@ -108,6 +114,7 @@ glimpse(mpg)
 The basic pattern of a ggplot function looks like this:
 
 ```{r eval = FALSE}
+## ggplot blueprint to making any plot
 ggplot(data = <DATA>) + 
   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 ```
@@ -124,6 +131,7 @@ A ggplot object must contain
 - Mappings are always added using the `aes()` command, which can be inside the `ggplot()` or `geom`.
 
 ```{r, eval=FALSE}
+# ggplot works with layers, each layers is added with the `+` operator.
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point()
 ```
@@ -150,6 +158,7 @@ There are plenty of ways to map aesthetics in ggplot.
 
 For example, we could set the colour of the point to be determined by the vehicle class.
 ```{r, fig.height=3, fig.width=6}
+# Aesthetics
 ggplot(data = mpg, aes(x=displ, y=hwy, colour=class))+
   geom_point()
 ```
@@ -159,6 +168,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy, colour=class))+
 ggplot does some clever things when deciding what colours to use - for factorial variables it will assign each factor a unique colour, whilst for continuous variables it will assign a colour scale. These can be customized (we'll cover this later).
 
 ```{r}
+# ggplot does some clever things when deciding what colours to use
 ggplot(data = mpg, aes(x=displ, y=hwy, colour=year))+
   geom_point()
 ```
@@ -169,6 +179,7 @@ You can also use shapes to distinguish between categories, such as class.
 
 But, what's wrong with this plot?
 ```{r}
+# You can also use shapes to distinguish between categories, such as class.
 ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
   geom_point()
 ```
@@ -179,6 +190,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
 
 Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to SUV here:
 ```{r}
+#Some aesthetics are only suitable in certain situations
 ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
   geom_point()
 ```
@@ -188,6 +200,8 @@ ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
 You can also specify things manually. Hint use `colors()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
 
 ```{r, fig.height=3, fig.retina=2}
+#You can also specify things manually
+
 ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')), 
        aes(x=displ, y=hwy, colour=manufacturer, shape = manufacturer))+
   geom_point(size=3)+
@@ -199,6 +213,9 @@ ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')),
 You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
 
 ```{r}
+
+#You don't *have* to map aesthetics onto variables; you can specify them manually.
+#
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point(color = "orange")
 ```
@@ -212,6 +229,8 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 - What's wrong with this code? Why aren't the points blue?
 
 ```{r, fig.height=2, fig.width=5}
+#What's wrong with this code? Why aren't the points blue?
+
 ggplot(data = mpg)+
   geom_point(aes(x=displ, y=hwy, color = "blue"))
 ```
@@ -271,6 +290,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 We can add the points as well, using the + operator; and have added a line break using `geom_line` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
 
 ```{r, fig.height=4}
+
+# We can add the points as well, using the + operator
+# 
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_smooth()+
   geom_point() +
@@ -285,6 +307,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 Note that the points vary in `color` based on the cars `class` but the smooth line does not.
 
 ```{r, fig.height=3, echo=FALSE}
+
+# Note that the points vary in `color` based on the cars `class` but the smooth line does not.
+# 
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_smooth()+
   geom_point(aes(color=class))
@@ -326,6 +351,8 @@ Thus we can create the same graph using two different approaches in ggplot:
 **1 - stat_summary**
 ```{r, fig.height = 2.5}
 
+# we can create the same graph using two different approaches in ggplot
+
 ggplot(data = mpg)+
   stat_summary(mapping = aes(x = class, y = hwy),
                fun.ymin = min, fun.ymax = max,
@@ -341,6 +368,8 @@ The same graph can be created using the geom command:
 **2 - geom_pointrange**
 ```{r, fig.height = 2.5}
 
+# The same graph can be created using the geom command
+# 
 ggplot(data = mpg)+
   geom_pointrange(mapping = aes(x = class, y = hwy),
                   fun.ymin = min, fun.ymax = max, 
@@ -352,6 +381,8 @@ ggplot(data = mpg)+
 Some geoms plot raw data (like `geom_point()`) others perform transformations in the background. We've already seen this with `geom_smooth()`. Look at what happens when we plot a bar chat of vehicle class.
 
 ```{r, fig.height=2}
+#Bar charts
+
 ggplot(data=mpg, aes(x=class))+
   geom_bar()
 ```
@@ -377,6 +408,9 @@ What is wrong with this chart?
 Note: With bar charts, `fill=` determines the colour inside the bar and `colour=` controls the lines around the bar.
 
 ```{r, fig.height=3}
+
+# Bar chart positioning
+# 
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
          geom_bar(color='black')+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
@@ -387,6 +421,9 @@ ggplot(data=mpg, aes(x=manufacturer, fill=class))+
 By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument. 'dodge' places bars next to each other, whilst 'fill' makes them all the same length (to allow for easier comparison).
 
 ```{r, fig.height=3}
+
+#By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument
+
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
          geom_bar(color='black', position='dodge')+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
@@ -415,6 +452,8 @@ stat = "summary", fun.y = "mean"
 What is wrong with this plot?
 
 ```{r}
+# What is wrong with this plot?
+# 
 ggplot(data=mpg, aes(x=cty, y=hwy))+
   geom_point()
 ```
@@ -424,6 +463,9 @@ ggplot(data=mpg, aes(x=cty, y=hwy))+
 Because there are multiple observations, some are **overplotted**. To correct this, you can add some random noise to the data with `position="jitter"` or `geom_jitter`. This is a bit of a compromise - you either have a chart that is accurate but suffers from over plotting, or one that contains some random noise but reveals the size of the data.
 
 ```{r, fig.height=3}
+# Because there are multiple observations, some are **overplotted**.
+#  To correct this, you can add some random noise to the data with `position="jitter"` or `geom_jitter`.
+
 ggplot(data=mpg, aes(x=cty, y=hwy))+
   geom_jitter(color='red')+
   geom_point()
@@ -436,6 +478,8 @@ ggplot(data=mpg, aes(x=cty, y=hwy))+
 Labels and titles can be added using the labs command.
 
 ```{r, fig.height=3}
+#Themes, titles, and multiple plots
+
 ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
   geom_bar()+
   labs(title="Proportion of sample by class", x="Class", y="Proportion")
@@ -445,6 +489,9 @@ ggplot(data=mpg, aes(x=class, y=..prop.., group=1))+
 
 Plots can be arranged using the `grid.arrange` command from the `gridExtra` package. First we store the plots in a variable using the `<-` operator.
 ```{r}
+
+# Multiple plots
+# 
 plot1<-
   ggplot(data=mpg, aes(x=cyl, y=..prop.., group=1))+
   geom_bar(fill="red")+
@@ -461,6 +508,8 @@ plot2<-
 ---
 
 ```{r}
+# gridExtra
+
 require(gridExtra)
 grid.arrange(plot1, plot2, nrow=1)
 
@@ -471,6 +520,8 @@ grid.arrange(plot1, plot2, nrow=1)
 You can change the theme to a number of presets.
 
 ```{r}
+#Themes
+
 grid.arrange(
   plot2+theme_bw(), plot2+theme_classic(),plot2+theme_minimal(),  plot2+theme_light())
 ```
@@ -480,6 +531,10 @@ grid.arrange(
 You can also make your own custom themes; plot are made up of four elements `element_text`, `element_line`, `element_rect`, and `element_blank`. Plots can be modified using these element commands. For example:
 
 ```{r, fig.height=3}
+
+#You can also make your own custom themes
+#
+#
 ugly.theme <-
   theme(
     text = element_text(colour='orange', face='bold'),
@@ -500,6 +555,8 @@ plot2+ugly.theme
 *Hint*: here is some code to start you off:
 
 ```{r, eval=FALSE, results=FALSE}
+ # Exercises: Section 5
+
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
 ```
