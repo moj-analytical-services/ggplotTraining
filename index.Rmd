@@ -3,15 +3,15 @@ title: "Charting in R"
 author: ''
 date: ''
 output:
+  slidy_presentation:
+    highlight: tango
+  beamer_presentation:
+    highlight: tango
   ioslides_presentation:
     highlight: zenburn
     keep_md: no
     smaller: yes
     widescreen: yes
-  beamer_presentation:
-    highlight: tango
-  slidy_presentation:
-    highlight: tango
 ---
 
 ```{r, include=FALSE}
@@ -133,7 +133,7 @@ ggplot(data = mpg)+
   geom_point(aes(x=displ, y=hwy))
 ```
 
-## Exercises
+## Exercises: Section 1
 
 1. Run `ggplot(data=mpg)` what do you see?
 2. What does the `drv` variable describe? Read the help for mpg data set to find out by running `?mpg`
@@ -205,7 +205,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 
 ---
 
-## Exercises
+## Exercises: Section 2
+
+### 1
 
 - What's wrong with this code? Why aren't the points blue?
 
@@ -214,10 +216,13 @@ ggplot(data = mpg)+
   geom_point(aes(x=displ, y=hwy, color = "blue"))
 ```
 
+### 2 
 - Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables? Hint: use `glimpse(mpg)` to identify variable types.
 
+### 3
 - What happens if you map the same variable to multiple aesthetics?
 
+### 4
 - What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ <5)`
 
 ## Facets
@@ -272,7 +277,10 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_line(aes(x = 4.5))
 ```
 
-## Exercise
+## Exercise: Section 3
+
+### 1
+
 **Can you reproduce this plot?** 
 Note that the points vary in `color` based on the cars `class` but the smooth line does not.
 
@@ -282,7 +290,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point(aes(color=class))
 ```
 
-Extension: Try removing the confidence interval from the smooth line. Also try changing the linetype to dashed or dotted.
+### Extension
+
+Try removing the confidence interval from the smooth line. Also try changing the linetype to dashed or dotted.
 
 ## Part 2
 
@@ -384,7 +394,7 @@ ggplot(data=mpg, aes(x=manufacturer, fill=class))+
 
 ---
 
-## Exercises
+## Exercises: Section 4
 
 1. Using the mpg dataset create a bar chart showing a count of the dataset grouped by 'class' of car.
 
@@ -483,7 +493,7 @@ plot2+ugly.theme
 ```
 
 
-## Exercises
+## Exercises:Section 5
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
 
