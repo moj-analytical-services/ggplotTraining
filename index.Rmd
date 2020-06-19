@@ -3,15 +3,15 @@ title: "Charting in R"
 author: ''
 date: ''
 output:
-  slidy_presentation:
-    highlight: tango
-  beamer_presentation:
-    highlight: tango
   ioslides_presentation:
     highlight: zenburn
     keep_md: no
     smaller: yes
     widescreen: yes
+  beamer_presentation:
+    highlight: tango
+  slidy_presentation:
+    highlight: tango
 ---
 
 ```{r, include=FALSE}
@@ -493,7 +493,7 @@ plot2+ugly.theme
 ```
 
 
-## Exercises:Section 5
+## Exercises: Section 5
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
 
