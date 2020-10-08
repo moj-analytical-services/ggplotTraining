@@ -2,7 +2,7 @@
 
 If you are taking this introduction to R charting using ggplot2 you will find the following documents useful:
 
-* [Here](https://moj-analytical-services.github.io/ggplotTraining/) - the session presentation  
+* [The session presentation](https://moj-analytical-services.github.io/ggplotTraining/)   
 * R_code_participant.R - this script contains the code used in the training session  
   
 In advance of the training session please follow the basic setup guidance on page 1 of Intro_markdown.docx which can be found [here](https://github.com/moj-analytical-services/IntroRTraining)  
