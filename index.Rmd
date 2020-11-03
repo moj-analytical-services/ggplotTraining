@@ -589,7 +589,7 @@ In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
 ### Extras
 
-- Extensions gallery: http://www.ggplot2-exts.org/gallery/
+- The R Graph Gallery: https://www.r-graph-gallery.com/index.html
 
 ### Alternatives
 
