@@ -422,7 +422,8 @@ By default bars are "stacked" on top of each other. This makes comparing proport
 
 ```{r, fig.height=3}
 
-#By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument
+# By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult.
+# You can control this with the position argument.
 
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
          geom_bar(color='black', position='dodge')+
