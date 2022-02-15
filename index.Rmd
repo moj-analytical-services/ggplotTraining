@@ -270,7 +270,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 # Other geoms
 
 ## Geoms
-There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet. This can be found at https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet. This can be found at https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
 
 ```{r, echo=FALSE, out.width="600px"}
 knitr::include_graphics("images/cheatsheet.png")
@@ -422,7 +422,8 @@ By default bars are "stacked" on top of each other. This makes comparing proport
 
 ```{r, fig.height=3}
 
-#By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument
+# By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult.
+# You can control this with the position argument.
 
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
          geom_bar(color='black', position='dodge')+
@@ -584,7 +585,7 @@ In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
 ### References
 
-- Cheatsheet: https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
+- Cheatsheet: https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
 - Quick reference: http://r-statistics.co/ggplot2-cheatsheet.html
 
 ### Extras
