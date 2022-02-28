@@ -60,7 +60,12 @@ Should you need them, the built in plot features can be called with
 ----------
 
 ```{r}
-#Basic Plot
+# Basic Plot
+
+## Set seed for plot
+set.seed(5)
+
+## Visualise plot
 plot(rnorm(20), rnorm(20))
 ```
 
