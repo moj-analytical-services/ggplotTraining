@@ -524,6 +524,8 @@ grid.arrange(plot1, plot2, nrow=1)
 ## Themes
 You can change the theme to a number of presets.
 
+---
+
 ```{r}
 #Themes
 
@@ -548,10 +550,14 @@ ugly.theme <-
     panel.background = element_rect(fill = 'black', colour = 'red'),
   )
 
+```
+
+---
+```{r, fig.height=3}
+
 plot2+ugly.theme
 
 ```
-
 
 ## Exercises: Section 5
 
