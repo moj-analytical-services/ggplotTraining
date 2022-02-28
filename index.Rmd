@@ -64,10 +64,10 @@ Should you need them, the built in plot features can be called with
 plot(rnorm(20), rnorm(20))
 ```
 
-# GGplot2 - Basics
+# ggplot2 - Basics
 
 ## Grammar of graphics
-Plots in R are now mostly made using GGplot2.
+Plots in R are now mostly made using ggplot2.
 
 Follows the "grammar of graphics" principle that plots can be made up from:
 
