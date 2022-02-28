@@ -215,6 +215,7 @@ ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')),
 ```
 
 ---
+
 You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
 
 ```{r}
@@ -224,8 +225,6 @@ You don't *have* to map aesthetics onto variables; you can specify them manually
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_point(color = "orange")
 ```
-
----
 
 ## Exercises: Section 2
 
@@ -336,8 +335,6 @@ The topics for the second part will include:
    - Example using Bar Charts
    - Chart Positioning 
    - Themes, titles and Multiple Plots
-  
----
 
 ## Stats and Geoms
 
@@ -438,8 +435,6 @@ ggplot(data=mpg, aes(x=manufacturer, fill=class))+
          geom_bar(color='black', position='dodge')+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
 ```
-
----
 
 ## Exercises: Section 4
 
