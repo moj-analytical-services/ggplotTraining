@@ -60,14 +60,19 @@ Should you need them, the built in plot features can be called with
 ----------
 
 ```{r}
-#Basic Plot
+# Basic Plot
+
+## Set seed for plot
+set.seed(5)
+
+## Visualise plot
 plot(rnorm(20), rnorm(20))
 ```
 
-# GGplot2 - Basics
+# ggplot2 - Basics
 
 ## Grammar of graphics
-Plots in R are now mostly made using GGplot2.
+Plots in R are now mostly made using ggplot2.
 
 Follows the "grammar of graphics" principle that plots can be made up from:
 
@@ -197,7 +202,7 @@ ggplot(data = mpg, aes(x=displ, y=hwy, shape=class, colour=class))+
 
 ---
 
-You can also specify things manually. Hint use `colors()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
+You can also specify things manually. Hint use `colours()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
 
 ```{r, fig.height=3, fig.retina=2}
 #You can also specify things manually
@@ -205,11 +210,12 @@ You can also specify things manually. Hint use `colors()` to get the list of bui
 ggplot(data = mpg %>% filter(manufacturer %in% c('audi', 'volkswagen')), 
        aes(x=displ, y=hwy, colour=manufacturer, shape = manufacturer))+
   geom_point(size=3)+
-  scale_color_manual(values = c("audi" = "#28b7b7", "volkswagen"="violet"))+
+  scale_colour_manual(values = c("audi" = "#28b7b7", "volkswagen"="violet"))+
   scale_shape_manual(values = c("audi" = 1, "volkswagen" = 24))
 ```
 
 ---
+
 You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
 
 ```{r}
@@ -217,10 +223,8 @@ You don't *have* to map aesthetics onto variables; you can specify them manually
 #You don't *have* to map aesthetics onto variables; you can specify them manually.
 #
 ggplot(data = mpg, aes(x=displ, y=hwy))+
-  geom_point(color = "orange")
+  geom_point(colour = "orange")
 ```
-
----
 
 ## Exercises: Section 2
 
@@ -232,11 +236,13 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 #What's wrong with this code? Why aren't the points blue?
 
 ggplot(data = mpg)+
-  geom_point(aes(x=displ, y=hwy, color = "blue"))
+  geom_point(aes(x=displ, y=hwy, colour = "blue"))
 ```
 
+---
+
 ### 2 
-- Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables? Hint: use `glimpse(mpg)` to identify variable types.
+- Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave differently\n for categorical vs. continuous variables? Hint: use `glimpse(mpg)` to identify variable types.
 
 ### 3
 - What happens if you map the same variable to multiple aesthetics?
@@ -304,16 +310,18 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 ### 1
 
 **Can you reproduce this plot?** 
-Note that the points vary in `color` based on the cars `class` but the smooth line does not.
+Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
 
 ```{r, fig.height=3, echo=FALSE}
 
-# Note that the points vary in `color` based on the cars `class` but the smooth line does not.
+# Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
 # 
 ggplot(data = mpg, aes(x=displ, y=hwy))+
   geom_smooth()+
-  geom_point(aes(color=class))
+  geom_point(aes(colour=class))
 ```
+
+---
 
 ### Extension
 
@@ -327,8 +335,6 @@ The topics for the second part will include:
    - Example using Bar Charts
    - Chart Positioning 
    - Themes, titles and Multiple Plots
-  
----
 
 ## Stats and Geoms
 
@@ -412,7 +418,7 @@ Note: With bar charts, `fill=` determines the colour inside the bar and `colour=
 # Bar chart positioning
 # 
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
-         geom_bar(color='black')+
+         geom_bar(colour='black')+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
 ```
 
@@ -426,11 +432,9 @@ By default bars are "stacked" on top of each other. This makes comparing proport
 # You can control this with the position argument.
 
 ggplot(data=mpg, aes(x=manufacturer, fill=class))+
-         geom_bar(color='black', position='dodge')+
+         geom_bar(colour='black', position='dodge')+
   theme(axis.text.x = element_text(angle=90, vjust = 0, hjust=1))
 ```
-
----
 
 ## Exercises: Section 4
 
@@ -468,7 +472,7 @@ Because there are multiple observations, some are **overplotted**. To correct th
 #  To correct this, you can add some random noise to the data with `position="jitter"` or `geom_jitter`.
 
 ggplot(data=mpg, aes(x=cty, y=hwy))+
-  geom_jitter(color='red')+
+  geom_jitter(colour='red')+
   geom_point()
 ```
 
@@ -500,7 +504,7 @@ plot1<-
 
 plot2<-
   ggplot(data=mpg, aes(x=cty, y=hwy))+
-  geom_jitter(color='red')+
+  geom_jitter(colour='red')+
   labs(title="Highway fuel efficiency\number of cylinders", 
        subtitle="Note, the points are jittered", x="Number of cylinders", y="Fuel efficiency")
 
@@ -519,6 +523,8 @@ grid.arrange(plot1, plot2, nrow=1)
 
 ## Themes
 You can change the theme to a number of presets.
+
+---
 
 ```{r}
 #Themes
@@ -539,15 +545,19 @@ You can also make your own custom themes; plot are made up of four elements `ele
 ugly.theme <-
   theme(
     text = element_text(colour='orange', face='bold'),
-    panel.grid.major = element_line(color="violet", linetype = "dashed"),
+    panel.grid.major = element_line(colour="violet", linetype = "dashed"),
     panel.grid.minor = element_blank(),
     panel.background = element_rect(fill = 'black', colour = 'red'),
   )
 
+```
+
+---
+```{r, fig.height=3}
+
 plot2+ugly.theme
 
 ```
-
 
 ## Exercises: Section 5
 
@@ -684,7 +694,7 @@ ggplot(data=mpg, aes(x=class, y=hwy, fill=class))+
 
 
 
-## Additional Color Pallets
+## Additional colour Pallets
 
 The viridis scale is useful as it still prints of correctly in black and white or colour. 
 
@@ -693,7 +703,7 @@ The viridis scale is useful as it still prints of correctly in black and white o
 require(viridis)
 ggplot(data = mpg, aes(x=displ, y=hwy, colour=year))+
   geom_point()+
-  scale_color_viridis()
+  scale_colour_viridis()
   
 ```
 
