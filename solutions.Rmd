@@ -167,7 +167,7 @@ Now specify a y co-ordinate mapping to show the average fuel displacement of eac
   
 ```{r, fig.height = 2.7}
 
-ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ), stat = "summary", fun.y = "mean")
+ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ), stat = "summary", fun = "mean")
 
 ```
 

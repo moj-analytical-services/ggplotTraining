@@ -363,8 +363,8 @@ Thus we can create the same graph using two different approaches in ggplot:
 
 ggplot(data = mpg) +
   stat_summary(mapping = aes(x = class, y = hwy),
-               fun.ymin = min, fun.ymax = max,
-               fun.y = median)
+               fun.min = min, fun.max = max,
+               fun = median)
 ```
 
 ---
@@ -380,8 +380,8 @@ The same graph can be created using the geom command:
 # 
 ggplot(data = mpg) +
   geom_pointrange(mapping = aes(x = class, y = hwy),
-                  fun.ymin = min, fun.ymax = max, 
-                  fun.y = median,
+                  fun.min = min, fun.max = max, 
+                  fun = median,
                   stat = "summary")
 ```
 
