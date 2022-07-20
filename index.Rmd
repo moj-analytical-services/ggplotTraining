@@ -447,7 +447,7 @@ ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
 *Hint* you will need the following arguments inside the 'geom_bar' call (as well as your x and y mapping):
 
 ```{r, eval=FALSE, results=FALSE}
-stat = "summary", fun.y = "mean"
+stat = "summary", fun = "mean"
 ```
 
 3. Add a fill to the bars to show the average split by the type of drive of each class of car. 
@@ -637,9 +637,9 @@ In earlier versions of ggplot2 (v3.0.0 backwards) the `stat()` command used abov
 You can control ggplot transformation more precisely by using the `stat_` command, as previously illustrated. Here are a few examples: Mean, min and max values in one plot. Note that we override the default geom by specifying this specifically as an argument.
 ```{r, fig.height=3}
 ggplot(data = mpg, aes(x = class, y = hwy)) +
-  stat_summary(fun.y = mean,
-               fun.ymin = min,
-               fun.ymax = max,
+  stat_summary(fun = mean,
+               fun.min = min,
+               fun.max = max,
                geom = 'crossbar',
                fill = 'white')
 ```
@@ -677,7 +677,7 @@ You can use these stats to enhance descriptive charts. For example, by adding co
 
 ```{r}
 ggplot(data = mpg, aes(x = class, y = hwy, fill = class)) +
-  stat_summary(fun.y = "mean", geom = 'bar') +
+  stat_summary(fun = "mean", geom = 'bar') +
   stat_summary(fun.data = "mean_cl_boot", geom = "errorbar", width = .25)
 ```
 

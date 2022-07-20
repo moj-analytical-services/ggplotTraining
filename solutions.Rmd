@@ -181,7 +181,7 @@ Add a fill to the bars to show the average split by the type of drive of each cl
 ```{r, fig.height = 3}
 
 ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
-                              fun.y = "mean", position = "dodge")
+                              fun = "mean", position = "dodge")
 
 ```
 
@@ -262,7 +262,7 @@ Manually change the colours of the fill being used. Also change the font size an
 
 ggplot(data = mpg) + 
   geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
-           fun.y = "mean", position = "dodge") +
+           fun = "mean", position = "dodge") +
   theme(axis.text.x = element_text(angle = 90, size = 8)) + 
   scale_fill_manual(values = c("blue", "darkblue", "blueviolet"))
 
