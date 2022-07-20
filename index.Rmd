@@ -15,7 +15,7 @@ output:
 ---
 
 ```{r, include=FALSE}
-require(knitr)
+library(knitr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=FALSE)
 
 ```
@@ -518,7 +518,7 @@ plot2<-
 ```{r}
 # gridExtra
 
-require(gridExtra)
+library(gridExtra)
 grid.arrange(plot1, plot2, nrow=1)
 
 ```
@@ -702,8 +702,7 @@ ggplot(data=mpg, aes(x=class, y=hwy, fill=class))+
 The viridis scale is useful as it still prints of correctly in black and white or colour. 
 
 ```{r}
-#install.packages('viridis')
-require(viridis)
+library(viridis)
 ggplot(data = mpg, aes(x=displ, y=hwy, colour=year))+
   geom_point()+
   scale_colour_viridis()
