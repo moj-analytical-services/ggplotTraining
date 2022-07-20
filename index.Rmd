@@ -84,22 +84,25 @@ Follows the "grammar of graphics" principle that plots can be made up from:
 
 -----
 
-ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science. You can load it in R as so:
+ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science.
+
+To attach ggplot2 run:
 
 ```{r, highlight=TRUE}
-# load ggplot2 library as part of tidyverse  
-library(tidyverse)
-```
-
-Alternatively you can import ggplot2 directly:
-
-```{r, highlight=TRUE}
-# load ggplot2 library on its own
-
 library(ggplot2)
 ```
 
+We will also use the dplyr package to manipulate the data:
 
+```{r, highlight=TRUE}
+library(dplyr)
+```
+
+And the magrittr pipe to make the code easier to read:
+
+```{r, highlight=TRUE}
+library(magrittr)
+```
 
 ## Loading the data
 
