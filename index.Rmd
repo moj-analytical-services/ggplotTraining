@@ -286,7 +286,7 @@ knitr::include_graphics("images/cheatsheet.png")
 
 ## geom_smooth()
 
-geom_smooth() takes data points and returns a linear model with confidence intervals. For example, if we just replace `geom_point()` with `geom_smooth()`, we get a loess curve.  
+geom_smooth() takes data points and returns a regression model with confidence intervals. For example, if we just replace `geom_point()` with `geom_smooth()`, we get a loess curve.  
 
 ```{r, fig.height=4}
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
@@ -297,7 +297,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 We can add the points as well, using the + operator; and have added a line break using `geom_line` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
 
-```{r, fig.height=4}
+```{r, fig.height=3}
 
 # We can add the points as well, using the + operator
 # 
@@ -635,7 +635,7 @@ In earlier versions of ggplot2 (v3.0.0 backwards) the `stat()` command used abov
 ---
 
 You can control ggplot transformation more precisely by using the `stat_` command, as previously illustrated. Here are a few examples: Mean, min and max values in one plot. Note that we override the default geom by specifying this specifically as an argument.
-```{r, fig.height=4}
+```{r, fig.height=3}
 ggplot(data = mpg, aes(x = class, y = hwy)) +
   stat_summary(fun.y = mean,
                fun.ymin = min,
@@ -700,7 +700,7 @@ ggplot(data = mpg, aes(x = class, y = hwy, fill = class)) +
 
 The viridis scale is useful as it still prints of correctly in black and white or colour. 
 
-```{r}
+```{r, fig.height=3}
 library(viridis)
 ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
   geom_point() +
