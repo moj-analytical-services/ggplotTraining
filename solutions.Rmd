@@ -13,10 +13,11 @@ output:
 ---
 
 ```{r, include=FALSE}
-require(knitr)
+library(knitr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=FALSE)
-require(tidyverse)
-require(ggthemes)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
 data(mpg)
 
 ```
@@ -26,7 +27,7 @@ data(mpg)
 ### 1
 
 ```{r}
-ggplot(data=mpg)
+ggplot(data = mpg)
 ```
 
 ### 2
@@ -39,7 +40,7 @@ ggplot(data=mpg)
 Make a scatter plot of `hwy` vs. `cty`
 
 ```{r, fig.height=3}
-ggplot(data=mpg, aes(x=hwy, y=cty))+
+ggplot(data = mpg, aes(x = hwy, y = cty)) +
   geom_point()
 ```
 
@@ -48,7 +49,7 @@ Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
 
 Note, `qplot` can be used for quick plotting with less customisation. 
 ```{r, fig.height=3}
-qplot(mpg$class, mpg$drv, geom='point')
+qplot(mpg$class, mpg$drv, geom = 'point')
 ```
 
 ### Extention
@@ -67,11 +68,11 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = class, y = cty, colour = drv))
 What's wrong with this code? Why aren't the points blue?
 <div class="columns-2">
 ```{r, fig.height=3, fig.width=5}
-ggplot(data = mpg)+
-  geom_point(aes(x=displ, y=hwy, color = "blue"))
+ggplot(data = mpg) +
+  geom_point(aes(x = displ, y = hwy, color = "blue"))
 
-ggplot(data = mpg)+
-  geom_point(aes(x=displ, y=hwy), color = "blue")
+ggplot(data = mpg) +
+  geom_point(aes(x = displ, y = hwy), color = "blue")
 
 
 ```
@@ -86,13 +87,13 @@ Map a continuous variable to `color`, `size` and `shape`. How do these aesthetic
 <div class="columns-2">
 
 ```{r, fig.height=3, fig.width=4}
-ggplot(data=mpg, aes(x=displ, y=hwy, color=cty))+
+ggplot(data = mpg, aes(x = displ, y = hwy, color = cty)) +
   geom_point()
 ```
 
 
 ```{r, fig.height=3, fig.width=4}
-ggplot(data=mpg, aes(x=displ, y=hwy, color=drv))+
+ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point()
 ```
 
@@ -103,25 +104,25 @@ ggplot(data=mpg, aes(x=displ, y=hwy, color=drv))+
 What happens if you map the same variable to multiple aesthetics?
 
 ```{r,fig.height=3}
-ggplot(data=mpg, aes(x=displ, y=hwy, color=drv, shape=drv))+
+ggplot(data = mpg, aes(x = displ, y = hwy, color = drv, shape = drv)) +
   geom_point()
 ```
 
 ### 4
 
-What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ <5)`
+What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
 
 ```{r, fig.height=3}
-ggplot(data = mpg, aes(x= displ, y=hwy, color = displ <5))+
-  geom_point()
+ggplot(data = mpg, aes(x = displ, y = hwy, color = displ < 5)) +
+  geom_point() 
 ```
 
 #### 4.1
 
 You may have got this instead:
 ```{r, fig.height = 3}
-ggplot(data = mpg, aes(x=displ, y=hwy, color=class))+
-  geom_smooth()+
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_smooth() +
   geom_point()
 ```
 
@@ -130,9 +131,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy, color=class))+
 
 ### Code to reproduce plot:
 ```{r, fig.height = 3}
-ggplot(data = mpg, aes(x=displ, y=hwy))+
-  geom_smooth()+
-  geom_point(aes(color=class))
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_smooth() +
+  geom_point(aes(color = class))
 ```
 
 
@@ -141,9 +142,9 @@ ggplot(data = mpg, aes(x=displ, y=hwy))+
 Removing conf. intervals and changing  the line type
 
 ```{r, fig.height = 3}
-ggplot(data = mpg, aes(x=displ, y=hwy))+
-  geom_smooth(se = FALSE, linetype = "dotted", colour = "black")+
-  geom_point(aes(color=class))
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(se = FALSE, linetype = "dotted", colour = "black") +
+  geom_point(aes(color = class))
 ```
 
 
@@ -166,7 +167,7 @@ Now specify a y co-ordinate mapping to show the average fuel displacement of eac
   
 ```{r, fig.height = 2.7}
 
-ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ), stat = "summary", fun.y = "mean")
+ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ), stat = "summary", fun = "mean")
 
 ```
 
@@ -180,7 +181,7 @@ Add a fill to the bars to show the average split by the type of drive of each cl
 ```{r, fig.height = 3}
 
 ggplot(data = mpg) + geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
-                              fun.y = "mean", position = "dodge")
+                              fun = "mean", position = "dodge")
 
 ```
 
@@ -232,9 +233,9 @@ Produce a **scatter plot** between **displ** and **hwy** that uses `stat_smooth(
 
 
 ```{r, fig.height=3}
-ggplot(data = mpg, aes(x=displ, y=hwy))+
-  geom_point()+
-  stat_smooth(method='glm')
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  stat_smooth(method = 'glm')
 ```
 
 ---
@@ -245,7 +246,7 @@ Create a boxplot of city full efficiency by manufacturer. Expirement with changi
 
 ```{r}
 
-ggplot(data=mpg, aes( x=manufacturer, y=cty)) +
+ggplot(data = mpg, aes(x = manufacturer, y = cty)) +
    stat_boxplot(coef = 1, outlier.colour = "red", varwidth = TRUE)
 
 ```
@@ -261,7 +262,7 @@ Manually change the colours of the fill being used. Also change the font size an
 
 ggplot(data = mpg) + 
   geom_bar(mapping = aes(x = class, y = displ, fill = drv), stat = "summary", 
-           fun.y = "mean", position = "dodge") +
+           fun = "mean", position = "dodge") +
   theme(axis.text.x = element_text(angle = 90, size = 8)) + 
   scale_fill_manual(values = c("blue", "darkblue", "blueviolet"))
 
