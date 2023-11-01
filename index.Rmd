@@ -146,7 +146,7 @@ Required:
 - aesthetic mappings
 - a geometric function
 
-The other functions are optional, with default values used if the are not specified.
+The other functions are optional, with default values used if they are not specified.
 
 ## Exercises: Section 1
 
