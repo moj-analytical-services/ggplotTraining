@@ -275,55 +275,6 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 ```
 
-
-# Other geoms
-
-## Geoms
-There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is 
-the cheat sheet. This can be found at https://rstudio.github.io/cheatsheets/data-visualization.pdf
-
-
-## geom_smooth()
-
-`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
-
-```{r, fig.height=4}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-```
-
----
-
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
-
-```{r, fig.height=3}
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-```
-
-## Exercise: Section 3
-
-### 1
-
-**Can you reproduce this plot?** 
-Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
-
-```{r, fig.height=3, echo=FALSE}
-# Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point(aes(colour = class))
-```
-
----
-
-### Extension
-
-Try removing the confidence interval from the smooth line. Also try changing the linetype to dashed or dotted.
-
 ## Part 2
 
 The topics for the second part will include:
@@ -461,6 +412,27 @@ Because there are multiple observations, some are **overplotted**. To correct th
 ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
   ggplot2::geom_point()
+```
+
+## geom_smooth()
+
+`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
+
+```{r, fig.height=4}
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth()
+```
+
+---
+
+We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
+
+```{r, fig.height=3}
+# We can add the points as well, using the + operator
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth() +
+  ggplot2::geom_point() +
+  ggplot2::geom_line(aes(x = 4.5))
 ```
 
 ## Exercises: Section 4
