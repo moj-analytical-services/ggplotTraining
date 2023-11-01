@@ -93,11 +93,11 @@ We will use `package::function()` syntax throughout this course instead of `libr
 This makes it easier to see where functions come from, avoids "function masking" and improves the
 reproducibility and reuseability of code.
 
-One exceptions to this is ggplot2's `aes()` function which is always nested inside other ggplot2 
-functions. We will use the import package to load the `aes()` function as well as the `mpg` dataset:
+Exceptions to this are ggplot2's `aes()` and `vars()` functions which are always nested inside other ggplot2 
+functions. We will use the import package to load those function as well as the `mpg` dataset:
 
 ```{r, highlight=TRUE}
-import::from("ggplot2", "aes", "mpg")
+import::from("ggplot2", "aes", "vars", "mpg")
 ```
 
 We will also import the magrittr pipe:
@@ -267,26 +267,28 @@ variable types.
 ### 4
 - What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
 
-## Facets
+## Faceting (small multiples)
 
-Facets are a useful way to separate out variables into subplots.
+Faceting generates subplots for different values of a data variable.
 
-There are two ways of doing this; `ggplot2::facet_wrap()` or `ggplot2::facet_grid()`. The main argument here is an R 'formula', where the faceted variable is preceded by a tilde ~ (e.g. ~class). To facet multiple variables, they can be separated by a tilde (e.g. drv ~ cyl)
+`ggplot2::facet_wrap()` splits the data by the specified variable and wraps the subplots into a grid.
 
 ```{r, fig.height=3}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
-  ggplot2::facet_wrap(~ class, nrow = 2)
+  ggplot2::facet_wrap(vars(class))
 ```
+
+Use `vars()` to specify variables for faceting, in the same way as `aes()` for aesthetics.
 
 ---
 
-You can lay out multiple facets in a grid:
+`ggplot2::facet_grid()` can be used to facet by two variables.
 
 ```{r}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
-  ggplot2::facet_grid(drv ~ class)
+  ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 ```
 
 
