@@ -219,15 +219,15 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = clas
 
 ## Scale functions
 
-Use `scale_` functions to set visual properties of the aesthetics, such as the colours or shapes used.
+Use `scale_` functions to set visual properties of the aesthetics, such as colours and axis scales.
 
 ```{r, fig.height=3.5, fig.retina=2}
-# You can also specify things manually
+# Use scale_ functions to set properties of the aesthetics
 dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) %>% 
-  ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer, shape = manufacturer)) +
+  ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer)) +
   ggplot2::geom_point(size = 3) +
-  ggplot2::scale_colour_manual(values = c("audi" = "#28b7b7", "volkswagen" = "violet")) +
-  ggplot2::scale_shape_manual(values = c("audi" = 1, "volkswagen" = 24))
+  ggplot2::scale_colour_manual(values = c("audi" = "#12436D", "volkswagen" = "#28A197")) +
+  ggplot2::scale_x_continuous(limits = c(1, 5))
 ```
 
 Hint: use `colours()` to get the list of built-in colours. Use hex values to specify any colour `'#28b7b7'`. 
