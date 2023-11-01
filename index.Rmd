@@ -87,7 +87,7 @@ functions. We will use the import package to load those function as well as the 
 import::from("ggplot2", "aes", "vars", "mpg")
 ```
 
-We will also import the magrittr pipe:
+We will also import the magrittr pipe operator:
 
 ```{r, highlight=TRUE}
 import::from("magrittr", "%>%")
@@ -113,7 +113,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point()
 ```
 
-- Contains data, aesthetic mappings with `aes()` and a geom function
+- Contains data, aesthetic mappings and a geom function
 
 - Add components with the `+` operator
 
