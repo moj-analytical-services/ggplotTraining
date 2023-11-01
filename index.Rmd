@@ -72,19 +72,23 @@ plot(rnorm(20), rnorm(20))
 # ggplot2 - Basics
 
 ## Grammar of graphics
-Plots in R are now mostly made using ggplot2.
 
-Follows the "grammar of graphics" principle that plots can be made up from:
+ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science.
 
-- Geometric objects (called 'geoms' in ggplot2)
-- Scales
-- Coordinate system
+Follows the "grammar of graphics" principles that plots can be composed from:
+
+- A data set
+- Mappings of variables to aesthetic features
+- Geometric objects to represent the data ("geoms")
+- Scales - properties of the visual mappings
+- Facets (for small multiples)
+- A coordinate system
 - Annotations
+- A theme (plot styling)
 
 
 -----
 
-ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science.
 
 To attach ggplot2 run:
 
