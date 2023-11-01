@@ -109,24 +109,21 @@ dplyr::glimpse(mpg)
 `displ` contains the cars' engine size in litres\
 `hwy` contains the cars fuel efficiency on the motorway in miles per gallon
 
-## Minimal scatter plot
-
-- Essential elements:
-  - data
-  - aesthetic mappings with aes()
-  - geom function
-
-- Add components with the `+` operator
+## A minimal plot
 
 ```{r, fig.height=3, fig.width=4}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point()
 ```
 
+- Contains data, aesthetic mappings with `aes()` and a geom function
+
+- Add components with the `+` operator
+
 ## Setting the aesthetics
 
-- `aes()`can be inside `ggplot()` or the `geom` function
-- setting aesthetics in a geom function allows you to add layers with different data or aesthetic mappings
+- `aes()`can be called inside `ggplot()` or a geom function.
+- Setting aesthetics in a geom function allows you to add layers with different data or aesthetic mappings.
 
 ```{r, fig.height=3, fig.width=4}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
@@ -168,9 +165,9 @@ To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and 
 
 ## Aesthetics
 
-There are plenty of ways to map aesthetics in ggplot.
+Typical aesthetics: x axis position, y axis position, colour, fill, size, alpha (transparency).
 
-For example, we could the use the point colour to show the class of vehicle.
+For example, we can the use the point colour to show the class of vehicle.
 ```{r, fig.height=3, fig.width=6}
 # Aesthetics
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
@@ -179,7 +176,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 
 ---
 
-ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continous colour scale. These can be customised using `scale_` functions (covered later).
+ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continous colour scale. These can be customised using `scale_` functions (shown later).
 
 ```{r, fig.height=4, fig.width=8}
 # ggplot2 looks at the data type to set a default colour scale
@@ -189,7 +186,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
 
 ---
 
-You can also use shapes to distinguish between categories, such as vehicle class.
+You could also use shapes to distinguish between categories, such as vehicle class.
 
 But, what's wrong with this plot?
 ```{r, fig.height=4, fig.width=8}
@@ -220,7 +217,7 @@ dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) %>%
   ggplot2::scale_x_continuous(limits = c(1, 5))
 ```
 
-Hint: use `colours()` to get the list of built-in colours. Use hex values to specify any colour `'#28b7b7'`. 
+Hint: use `colours()` to get the list of built-in colours. Use hex values to specify any colour. 
 
 ## Setting an aesthetic to a fixed value
 
