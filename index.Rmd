@@ -182,7 +182,7 @@ To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and 
 
 There are plenty of ways to map aesthetics in ggplot.
 
-For example, we could set the colour of the point to be determined by the vehicle class.
+For example, we could the use the point colour to show the class of vehicle.
 ```{r, fig.height=3, fig.width=6}
 # Aesthetics
 ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
@@ -191,42 +191,40 @@ ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 
 ---
 
-ggplot does some clever things when deciding what colours to use - for factorial variables it will assign each factor a unique colour, whilst for continuous variables it will assign a colour scale. These can be customized (we'll cover this later).
+ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continous colour scale. These can be customised using `scale_` functions (covered later).
 
 ```{r}
-# ggplot does some clever things when deciding what colours to use
+# ggplot2 looks at the data type to set a default colour scale
 ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
   geom_point()
 ```
 
 ---
 
-You can also use shapes to distinguish between categories, such as class.
+You can also use shapes to distinguish between categories, such as vehicle class.
 
 But, what's wrong with this plot?
 ```{r}
-# You can also use shapes to distinguish between categories, such as class.
+# You can also use shapes to distinguish between categories
 ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   geom_point()
 ```
 
-
-
 ---
 
-Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to SUV here:
+Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to "suv" here:
 ```{r}
-#Some aesthetics are only suitable in certain situations
+# Some aesthetics are only suitable in certain situations
 ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   geom_point()
 ```
 
----
+## Scale functions
 
-You can also specify things manually. Hint use `colours()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
+Use `scale_` functions to set visual properties of the aesthetics, such as the colours or shapes used.
 
 ```{r, fig.height=3, fig.retina=2}
-#You can also specify things manually
+# Use scale_functions to set visual properties of the aesthetics
 ggplot(filter(mpg, manufacturer %in% c('audi', 'volkswagen')),
        aes(x = displ, y = hwy, colour = manufacturer, shape = manufacturer)) +
   geom_point(size = 3) +
@@ -234,14 +232,15 @@ ggplot(filter(mpg, manufacturer %in% c('audi', 'volkswagen')),
   scale_shape_manual(values = c("audi" = 1, "volkswagen" = 24))
 ```
 
----
+Hint: use `colours()` to get the list of built-in colours. Use hex values to specify any colour `'#28b7b7'`. 
 
-You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
+## Setting an aesthetic to a fixed value
+
+You can also set an aesthetic to a fixed value, rather than being mapped to a data variable.
 
 ```{r}
 
-#You don't *have* to map aesthetics onto variables; you can specify them manually.
-#
+# Set an aesthetic to a fixed value
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(colour = "orange")
 ```
