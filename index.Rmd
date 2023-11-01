@@ -325,75 +325,43 @@ Try removing the confidence interval from the smooth line. Also try changing the
 
 The topics for the second part will include:
 
-- Stats and Geoms
-- Example using Bar Charts
+- More geoms
 - Chart Positioning 
 - Themes, titles and Multiple Plots
 
-## Stats and Geoms
-
-Both geoms and stats can be used to make plots in the R package ggplot2, and they will give corresponding results. The difference between geoms and stats can be summarized as follows:
-
-- geoms stand for 'geometric objects' - these are the core elements that you see on the plot; objects like lines, curves, points, areas.
-
-- stats stand for 'statistical transformations' - these objects summarize the data in different ways, to map the data to the chosen geom in the chosen way
-
-In general, equivalent plots can be created using either a 'stat' layer or a 'geom' layer. **Every geom has a default stat, and every stat has a default geom.** The majority of the time, you will find it easiest to use a geometric object, and use the default stat. However, this concept is introduced here as is important if looking to create more bespoke or advanced charts.
-
-For most of the time you will want to use the default stat for a chosen geom (or vice versa), but sometimes we will want to specify this explicitly, as in the next example, which illustrates one of the situations where we may want to use a stat object, rather than geom.
-
----
-
-As an example, the stat `ggplot2::stat_summary()` is the statistical transformation that provides a statistical summary of the chosen variable, including mean/median/mode, max/min, quartiles. The default geom for this stat is the `ggplot2::geom_pointrange()` - which shows the median value as a point, and lines to indicate the range of values recorded by the variable.
-
-Thus we can create the same graph using two different approaches in ggplot:
-
-**1 - stat_summary**
-```{r, fig.height = 2.5}
-# we can create the same graph using two different approaches in ggplot
-ggplot2::ggplot(data = mpg) +
-  ggplot2::stat_summary(mapping = aes(x = class, y = hwy),
-                        fun.min = min, fun.max = max,
-                        fun = median)
-```
-
----
-
-Note that when using stat_summary we also have to select what function we want to apply to the y variable - here we are looking at the range of values around the median, and specify functions as appropriate. When using stat_summary in general you will need to specify a function transformation for the y variable (this is not always true of other stats).
-
-The same graph can be created using the geom command:
-
-**2 - geom_pointrange**
-```{r, fig.height = 2.5}
-# The same graph can be created using the geom command
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_pointrange(mapping = aes(x = class, y = hwy),
-                           fun.min = min, fun.max = max, 
-                           fun = median,
-                           stat = "summary")
-```
 
 ## Bar charts
-Some geoms plot raw data (like `ggplot2::geom_point()`) others perform transformations in the background. We've already seen this with `ggplot2::geom_smooth()`. Look at what happens when we plot a bar chat of vehicle class.
+Counts of a single discrete variable.
 
-```{r, fig.height=2}
-# Bar charts
+```{r, fig.height=3, fig.width=9}
+# Bar charts counting rows in the data
 ggplot2::ggplot(data = mpg, aes(x = class)) +
   ggplot2::geom_bar()
 ```
 
-Rather than returning every observation, ggplot has summarized the data using the count statistic. This is because this is the default behavior for a bar chart - `ggplot2::stat_count()` is the default stat for `ggplot2::geom_bar()`. The same chart can therefore be produced using `ggplot2::ggplot(data = mpg, aes(x=class)) + ggplot2::stat_count()`. 
+---
+
+Bar charts from tabulated data.
+
+```{r, fig.height=3, fig.width=9}
+# Bar charts from tabulated data
+mpg %>% 
+  dplyr::group_by(class) %>% 
+  dplyr::summarise(count = dplyr::n()) %>% 
+  ggplot2::ggplot(aes(x = class, y = count)) +
+  ggplot2::geom_col() 
+```
 
 
 # Positioning
 
 ## Bar chart positioning
 
-What is wrong with this chart?
+How could this chart be made easier to use?
 
 Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the lines around the bar.
 
-```{r, fig.height=3}
+```{r, fig.height=3, fig.width=9}
 # Bar chart positioning
 ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
   ggplot2::geom_bar(colour = 'black') +
@@ -405,28 +373,70 @@ ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
 By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument. 'dodge' places bars next to each other, whilst 'fill' makes them all the same length (to allow for easier comparison).
 
 ```{r, fig.height=3}
-# By default bars are "stacked" on top of each other. This makes comparing proportions rather 
-# difficult. You can control this with the position argument.
+# By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
+# You can control this with the position argument.
 ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
   ggplot2::geom_bar(colour = 'black', position = 'dodge') +
   ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
 ```
 
-## Exercises: Section 4
+## Density plots and histograms
 
-1. Using the mpg dataset create a bar chart showing a count of the dataset grouped by 'class' of car.
+Histograms are a great tool for summarizing and describing a continuous variable.
 
-2. Now specify a y co-ordinate mapping to show the average fuel displacement (displ) of each 'class' of car. 
-
-*Hint* you will need the following arguments inside the 'geom_bar' call (as well as your x and y mapping):
-
-```{r, eval=FALSE, results=FALSE}
-stat = "summary", fun = "mean"
+```{r, fig.height=3}
+# Histogram
+ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+  ggplot2::geom_histogram(bins = 30) 
 ```
 
-3. Add a fill to the bars to show the average split by the type of drive of each class of car. 
+---
 
-*Hint* you will need to specify the position of the bars in order for this to make sense
+Density plots are another nice way to visualise a continuous variable.
+
+```{r, fig.height=3}
+# Density plot
+ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+  ggplot2::geom_density() 
+```
+
+---
+
+We can use the `alpha` argument to reveal overlapping areas if we plot by group
+
+```{r, fig.height=3}
+# Overlapping density plots
+ggplot2::ggplot(data = mpg, aes(x = hwy, fill = drv)) +
+  ggplot2::geom_density(alpha = 0.5) 
+```
+
+## Boxplots and violin plots
+
+```{r, fig.height=3}
+# Box plots
+ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+  ggplot2::geom_boxplot(fill = "red")
+```
+
+---
+
+```{r, fig.height=3}
+# Violin plots
+ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+  ggplot2::geom_violin(aes(fill = drv))
+```
+
+## Line charts
+
+US unemployment population data
+
+```{r, fig.height=3}
+# Line charts
+ggplot2::economics %>% 
+  ggplot2::ggplot(aes(x = date, y = unemploy)) +
+  ggplot2::geom_line()
+```
+
 
 ---
 
@@ -450,6 +460,15 @@ ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_point()
 ```
 
+## Exercises: Section 4
+
+1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
+
+2. Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping regions visible.
+
+3. Recreate the US unemployed population line graph. Add another line to show the total population. 
+
+*Hint* You will need to supply a new geom layer with a new aesthetic mapping.
 
 # Themes, titles, and multiple plots
 
@@ -471,13 +490,18 @@ Plots can be arranged using the `grid.arrange` command from the `gridExtra` pack
 plot1<-
   ggplot2::ggplot(data = mpg, aes(x = cyl, y = ..prop.., group = 1)) +
   ggplot2::geom_bar(fill = "red") +
-  ggplot2::labs(title = "Proportion of sample by cylinder", x = "Cylinder", y = "Proportion", subtitle = " ")
+  ggplot2::labs(title = "Proportion of sample by cylinder", 
+                x = "Cylinder", 
+                y = "Proportion", 
+                subtitle = " ")
 
 plot2<-
   ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
   ggplot2::labs(title = "Highway fuel efficiency\number of cylinders", 
-                subtitle = "Note, the points are jittered", x = "Number of cylinders", y = "Fuel efficiency")
+                subtitle = "Note, the points are jittered", 
+                x = "Number of cylinders", 
+                y = "Fuel efficiency")
 
 ```
 
@@ -499,7 +523,7 @@ You can change the theme to a number of presets.
 # Themes
 gridExtra::grid.arrange(
   plot2 + ggplot2::theme_bw(), plot2 + ggplot2::theme_classic(), 
-  plot2 + ggplot2::theme_minimal(), plot2 + ggplot2::theme_light())
+  plot2 + ggplot2::theme_dark(), plot2 + ggplot2::theme_light())
 ```
 
 ---
@@ -519,31 +543,51 @@ ugly_theme <-
 ```
 
 ---
+
 ```{r, fig.height=3}
 plot2 + ugly_theme
+```
 
+---
+
+Pre-built MoJ and Government Analysis Function themes and colour schemes are available in the `mojchart` package.
+
+```{r, fig.height=3}
+# MoJ colour scheme
+ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+  ggplot2::geom_bar(position = "dodge") +
+  mojchart::scale_fill_moj(n = 3) +
+  mojchart::theme_gss(xlabel = TRUE)
+```
+
+---
+
+The Government Analysis Function colour scheme is accessible.
+```{r, fig.height=3}
+# Accessible colour scheme
+ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+  ggplot2::geom_bar(position = "dodge") +
+  mojchart::scale_fill_moj(n = 3, scheme = "govanal_bars") +
+  mojchart::theme_gss(xlabel = TRUE)
 ```
 
 ## Exercises: Section 5
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
-
-*Hint*: here is some code to start you off:
-
-```{r, eval=FALSE, results=FALSE}
-# Exercises: Section 5
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
-```
-
-
+    + *Hint*: here is some code to start you off:
+    ```{r, eval=FALSE, results=FALSE}
+    # Exercises: Section 5
+    ggplot2::ggplot(data = mpg) +
+       ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
+    ```
 2. Change the title and axis labels to something sensible based on what the chart is showing.
-
 3. Create a custom theme changing:
-* major gridlines to grey, dashed
-* removing minor gridlines
-* x and y axis text to black, pt 10, italic
-* move the legend position to the bottom of the plot
+    + major gridlines to grey, dashed
+    + removing minor gridlines
+    + x and y axis text to black, pt 10, italic
+    + move the legend position to the bottom of the plot
+4. Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in colour schemes. 
+    + (Number 4 may be homework if we are running out of time!)
 
 ## Saving plots
 
@@ -551,7 +595,7 @@ Most of the time plots will be created directly into an R Markdown output, or a 
 
 * 'Export' button in RStudio viewer
 
-* ggsave(filename = "plotname.png", plot = myplot) - saves the plot into your current working directory in R Studio. Can then be downloaded from the platform via 'More' -> 'Export...'
+* `ggplot2::ggsave(filename = "plotname.png", plot = myplot)` - saves the plot into your current working directory in R Studio. Can then be downloaded from the platform via 'More' -> 'Export...'
 
 In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
@@ -565,132 +609,20 @@ In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
 ### Extras
 
-- The R Graph Gallery: https://www.r-graph-gallery.com/index.html
 - mojchart: https://github.com/moj-analytical-services/mojchart
+- The R Graph Gallery: https://www.r-graph-gallery.com/index.html
 - Further resources: https://trello.com/c/id9ir0Mf/18-r-charting-mapping-etc
 
 ### Alternatives
 
 - Plotly: Plotly is a Javascript framework for creating interactive charts. The plotly R library 
-has its own grammar for constructing charts, with power and flexibility rivalling that of ggplot2. 
+has its own grammar for constructing charts, with power and flexibility rivaling that of ggplot2. 
 However, it also has a function, ggplotly(), which can turn a ggplot chart into an interactive 
 chart. Find out more here: https://plot.ly/r/
-
 
 
 # Any questions? 
 
 
 
-## Appendix
-
-It is recommended to go through this material as a post- course exercise so as to built a proper base for understanding the R Charting mechanism.
-
-## More on the Stats and Geoms
-
-
-```{r, fig.height=2}
-# Proportion chart
-# Set group=1 and y=..prop.. to get relative proportion
-# ggplot(data=mpg, aes(x=class, y=stat(prop), group=1))+
-#   geom_bar()
-
-```
-
-In earlier versions of ggplot2 (v3.0.0 backwards) the `stat()` command used above was not in use, and if you have an earlier version of ggplot2 you will need to bear this in mind. In the earlier versions of ggplot2, a command using two full stops before and after the word is used - for example `..prop..`, `..count..`, etc.
-
----
-
-You can control ggplot transformation more precisely by using the `stat_` command, as previously illustrated. Here are a few examples: Mean, min and max values in one plot. Note that we override the default geom by specifying this specifically as an argument.
-```{r, fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = class, y = hwy)) +
-  ggplot2::stat_summary(fun = mean,
-                        fun.min = min,
-                        fun.max = max,
-                        geom = 'crossbar',
-                        fill = 'white')
-```
-
-
----
-
-Bootstrapped 95% confidence intervals:
-```{r}
-ggplot2::ggplot(data = mpg, aes(x = class, y = hwy)) +
-  ggplot2::stat_summary(fun.data = "mean_cl_boot")
-```
-
----
-
-Boxplots:
-
-```{r}
-ggplot2::ggplot(data = mpg, aes(x = class, y = hwy)) +
-  ggplot2::stat_boxplot(coef = 2) #set whisker range to 2
-```
-
----
-
-Violin plot:
-```{r}
-ggplot2::ggplot(data = mpg, aes(x = class, y = hwy)) +
-  ggplot2::stat_ydensity(fill = 'orange')
-```
-
-
----
-
-You can use these stats to enhance descriptive charts. For example, by adding confidence intervals:
-
-```{r}
-ggplot2::ggplot(data = mpg, aes(x = class, y = hwy, fill = class)) +
-  ggplot2::stat_summary(fun = "mean", geom = 'bar') +
-  ggplot2::stat_summary(fun.data = "mean_cl_boot", geom = "errorbar", width = .25)
-```
-
-
-## Exercise
-
-- Produce a **scatter plot** between **displ** and **hwy** that uses `ggplot2::stat_smooth()` with a **general linear model** line of best fit.
-- Hint: run `?ggplot2::stat_smooth()` to open the documentation for `ggplot2::stat_smooth()`, see how the transformation can be controlled.
-
-### Extension
-
-- Create a boxplot of city full efficiency by manufacturer. 
-
-- Experiment with changing the whisker length; change the colour of the outliers to red; and vary the width of the boxes proportional to the number of observations (hint: use ?stat_boxplot).
-
-
-
-
-## Additional colour Pallets
-
-The viridis scale is useful as it still prints of correctly in black and white or colour. 
-
-```{r, fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
-  ggplot2::geom_point() +
-  viridis::scale_colour_viridis()
-
-```
-
-
-## Additional Exercises 
-
-Run the below code to create a new subset of the mpg dataset
-
-```{r}
-mpg_group <- mpg %>% 
-  dplyr::select(class, year, cty) %>% 
-  dplyr::group_by(class, year) %>% 
-  dplyr::summarise(mean = mean(cty))
-```
-
-1. Plot a line chart to show change in city efficiency between the two years, with a different line colour and line type for each class. Make sure you specify the dataset as mpg_group (as created above)
-
-2. Experiment with changing the line types manually, and changing the thickness of the lines to make them larger.
-
-### Bar Chart positioning 
-
-Manually change the colours of the fill being used in the exercise in slide 33. Also change the font size and angle of the x axis text labels so that these can be read in the viewer.
 
