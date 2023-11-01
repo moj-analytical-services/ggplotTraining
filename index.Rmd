@@ -32,10 +32,7 @@ Present the fundamentals of creating high-quality charts in R with the ggplot2 p
 - Show how to construct a range of plots
 - Signpost resources
 
-## R Resources
-- This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license)
-
-- It covers all the basic usage of R and is pretty up to date.
+This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license).
 
 ## Part 1
 
