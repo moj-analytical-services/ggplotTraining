@@ -28,8 +28,8 @@ Expose you to the "grammar of graphics", to allow you create fancy charts in R
 ### Objectives:
 
 - Introduce ggplot2
-- Understand the grammar of constructing charts
-- Practice creating plots yourself
+- Explain the "grammar of graphics" approach
+- Show how to construct a range of plots
 - Signpost resources
 
 ## R Resources
@@ -41,30 +41,20 @@ Expose you to the "grammar of graphics", to allow you create fancy charts in R
 
 The topics for this first part will include the following:
 
-- Basic R Plotting
-- Grammar of Graphics basics
+- Base R plotting
+- The grammar of graphics
 - Aesthetics
 - Facets
-- Geoms
 
-## Basic plots
-- Base R has some basic plotting functionality, as illustrated here and on the following slide. However, it's quite limited in facility, and the current standard is to use the ggplot2 library, which provides a powerful grammar for creating charts.
+## Base R plotting
 
-Should you need them, the built in plot features can be called with
+Base R has plotting functionality.
 
-- Scatter: `plot()`
-- Histogram: `hist()`
-- Boxplot: `boxplot()`
-
-----------
-
-```{r}
-# Basic Plot
-
-# Set seed for plot
+```{r, fig.height=4, fig.width=5}
+# Random number seed
 set.seed(5)
 
-# Visualise plot
+# Scatter plot
 plot(rnorm(20), rnorm(20))
 ```
 
@@ -72,9 +62,9 @@ plot(rnorm(20), rnorm(20))
 
 ## Grammar of graphics
 
-ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science.
+The ggplot2 package is a part of the Tidyverse, a popular collection of packages designed for data science.
 
-Follows the "grammar of graphics" principles that plots can be composed from:
+ggplot2 follows the "grammar of graphics" principles that plots can be composed from:
 
 - A data set
 - Mappings of variables to aesthetic features
