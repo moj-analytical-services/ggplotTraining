@@ -118,40 +118,54 @@ data(mpg)
 glimpse(mpg)
 ```
 
-`displ` contains the cars engine size
-`hwy` contains the cars fuel efficiency on the motorway, low scores = more fuel consumption
+`displ` contains the cars' engine size in litres\
+`hwy` contains the cars fuel efficiency on the motorway in miles per gallon
 
-## Graphing template
+## Minimal scatter plot
 
-The basic pattern of a ggplot function looks like this:
+- Essential elements:
+  - data
+  - aesthetic mappings with aes()
+  - geom function
 
-```{r eval = FALSE}
-## ggplot blueprint to making any plot
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
-```
+- Add components with the `+` operator
 
-A ggplot object must contain
-
-- the data to be plotted
-- how that data should be mapped to the coordinate system, defined using `aes()` (short for aesthetics).
-- a geometric to draw the aesthetics with
-
----
-
-- ggplot works with layers, each layers is added with the `+` operator.
-- Mappings are always added using the `aes()` command, which can be inside the `ggplot()` or `geom`.
-
-```{r, eval=FALSE}
-# ggplot works with layers, each layers is added with the `+` operator.
+```{r, fig.height=3, fig.width=4}
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
+## Setting the aesthetics
+
+- `aes()`can be inside `ggplot()` or the `geom` function
+- setting aesthetics in a geom function allows you to add layers with different data or aesthetic mappings
+
 ```{r, fig.height=3, fig.width=4}
-ggplot(data = mpg) +
-  geom_point(aes(x = displ, y = hwy))
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_point(aes(x = displ, y = cty), colour = "blue")
+
 ```
+
+## General chart template
+
+```{r eval = FALSE}
+# chart template
+ggplot(data = <DATA>, aes(<MAPPINGS>) )  + 
+  <GEOM_FUNCTION> +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <THEME FUNCTION>
+```
+
+Required:
+
+- data
+- aesthetic mappings
+- a geometric function
+
+The other functions are optional, with default values used if the are not specified.
 
 ## Exercises: Section 1
 
