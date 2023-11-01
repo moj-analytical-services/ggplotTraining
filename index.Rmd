@@ -384,15 +384,6 @@ ggplot2::ggplot(data = mpg, aes(x = class)) +
 
 Rather than returning every observation, ggplot has summarized the data using the count statistic. This is because this is the default behavior for a bar chart - `ggplot2::stat_count()` is the default stat for `ggplot2::geom_bar()`. The same chart can therefore be produced using `ggplot2::ggplot(data = mpg, aes(x=class)) + ggplot2::stat_count()`. 
 
----
-
-```{r, echo=FALSE, out.width = "800px", out.height = "400px"}
-knitr::include_graphics("images/transform.png")
-```
-
-You may not want to use the default stat... you can override the defaults by specifying a stat. Stats can be called as we have already seen using `stat_` to specify the statistical transformation.
-
-In cases where we just have an x variable (e.g. for a simple bar chart), we can also just specify the stat we want as a y co-ordinate mapping. For example, in the aes mapping we simply call `y = stat(count)` for a basic count of the x variable, `y = stat(mean)` for the mean, `y = stat(prop)` for the proportion of observations in each x category, etc.
 
 # Positioning
 
