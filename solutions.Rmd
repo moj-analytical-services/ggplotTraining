@@ -65,29 +65,29 @@ What's wrong with this code? Why aren't the points blue?
 <div class="columns-2">
 ```{r, fig.height=3, fig.width=5}
 ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy, color = "blue"))
+  ggplot2::geom_point(aes(x = displ, y = hwy, colour = "blue"))
 
 ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy), color = "blue")
+  ggplot2::geom_point(aes(x = displ, y = hwy), colour = "blue")
 ```
 </div>
 
 
 ### 2
 
-Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables? Hint: use `dplyr::glimpse(mpg)` to identify variable types.
+Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables? Hint: use `dplyr::glimpse(mpg)` to identify variable types.
 
 
 <div class="columns-2">
 
 ```{r, fig.height=3, fig.width=4}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = cty)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = cty)) +
   ggplot2::geom_point()
 ```
 
 
 ```{r, fig.height=3, fig.width=4}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = drv)) +
   ggplot2::geom_point()
 ```
 
@@ -98,7 +98,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
 What happens if you map the same variable to multiple aesthetics?
 
 ```{r,fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = drv, shape = drv)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = drv, shape = drv)) +
   ggplot2::geom_point()
 ```
 
@@ -107,7 +107,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = drv, shape = drv)) +
 What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
 
 ```{r, fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = displ < 5)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
   ggplot2::geom_point() 
 ```
 
@@ -115,7 +115,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = displ < 5)) +
 
 You may have got this instead:
 ```{r, fig.height = 3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
   ggplot2::geom_smooth() +
   ggplot2::geom_point()
 ```
@@ -127,7 +127,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 ```{r, fig.height = 3}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_smooth() +
-  ggplot2::geom_point(aes(color = class))
+  ggplot2::geom_point(aes(colour = class))
 ```
 
 
@@ -138,7 +138,7 @@ Removing conf. intervals and changing  the line type
 ```{r, fig.height = 3}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_smooth(se = FALSE, linetype = "dotted", colour = "black") +
-  ggplot2::geom_point(aes(color = class))
+  ggplot2::geom_point(aes(colour = class))
 ```
 
 
