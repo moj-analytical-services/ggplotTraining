@@ -435,7 +435,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_line(aes(x = 4.5))
 ```
 
-## Exercises: Section 4
+## Exercises: Section 3
 
 1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
 
@@ -546,12 +546,11 @@ ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
   mojchart::theme_gss(xlabel = TRUE)
 ```
 
-## Exercises: Section 5
+## Exercises: Section 4
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
     + *Hint*: here is some code to start you off:
     ```{r, eval=FALSE, results=FALSE}
-    # Exercises: Section 5
     ggplot2::ggplot(data = mpg) +
        ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
     ```

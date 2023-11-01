@@ -111,35 +111,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
 
 ## Solutions: Section 3
 
-
-### Code to reproduce plot:
-```{r, fig.height = 3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point(aes(colour = class))
-```
-
-You may have got this instead:
-```{r, fig.height = 3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point()
-```
-
-###  Extention
-
-Removing conf. intervals and changing  the line type
-
-```{r, fig.height = 3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth(se = FALSE, linetype = "dotted", colour = "black") +
-  ggplot2::geom_point(aes(colour = class))
-```
-
-
-## Solutions: Section 4 
-
-### 4.1
+### 3.1
 
 Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
 
@@ -153,7 +125,7 @@ ggplot2::ggplot(data = mpg, aes(x = cty)) +
   ggplot2::geom_histogram(bins = 5) 
 ```
 
-### 4.2 
+### 3.2 
 
 Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping regions visible.
 
@@ -168,9 +140,7 @@ ggplot2::ggplot(data = mpg, aes(x = cty, fill = drv)) +
   ggplot2::geom_density(alpha = 0.3)
 ```
 
-
-
-### 4.3
+### 3.3
 
 Recreate the US unemployed population line graph. Add another line to show the total population. 
 
@@ -181,10 +151,9 @@ ggplot2::economics %>%
   ggplot2::geom_line(aes(x = date, y = pop))
 ```
 
+## Solutions: Section 4
 
-## Solutions: Section 5
-
-### 5.1
+### 4.1
 
 Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a 
 theme_minimal; and colour the points based on the number of cylinders the car has.
@@ -198,7 +167,7 @@ ggplot2::ggplot(data = mpg) +
 
 ```
 
-### 5.2
+### 4.2
 
 Change the title and axis labels to something sensible based on what the chart is showing.
 
@@ -213,7 +182,7 @@ ggplot2::ggplot(data = mpg) +
 
 ```
 
-### 5.3
+### 4.3
 
 Create a custom theme changing: major gridlines to grey, dashed; removing minor gridlines; x and y 
 axis text to black, pt 10, italic; move the legend position to the bottom of the plot.
@@ -232,8 +201,7 @@ ggplot2::ggplot(data = mpg) +
 
 ```
 
-
-### 5.4
+### 4.4
 
 Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in colour schemes.
 
