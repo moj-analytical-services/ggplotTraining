@@ -44,9 +44,9 @@ ggplot2::ggplot(data = mpg, aes(x = hwy, y = cty)) +
 ### 4
 Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
 
-Note, `qplot` can be used for quick plotting with less customisation. 
 ```{r, fig.height=3}
-ggplot2::qplot(mpg$class, mpg$drv, geom = "point")
+ggplot2::ggplot(data = mpg, aes(x = class, y = drv)) +
+  ggplot2::geom_point()
 ```
 
 ### Extention
