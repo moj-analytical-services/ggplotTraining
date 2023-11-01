@@ -4,4 +4,4 @@
 
 knitr::purl("index.Rmd")
 
-file.rename("index.R","example_code.R")
+file.rename("index.R", "R_code_participant.R")
