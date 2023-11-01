@@ -23,7 +23,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = FALSE)
 
 ### Aim:
 
-Expose you to the "grammar of graphics", to allow you create fancy charts in R
+Present the fundamentals of creating high-quality charts in R with the ggplot2 package.
 
 ### Objectives:
 
