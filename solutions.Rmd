@@ -36,7 +36,7 @@ ggplot2::ggplot(data = mpg)
 ### 3 
 Make a scatter plot of `hwy` vs. `cty`
 
-```{r, fig.height=3}
+```{r, fig.height=5}
 ggplot2::ggplot(data = mpg, aes(x = hwy, y = cty)) +
   ggplot2::geom_point()
 ```
@@ -44,7 +44,7 @@ ggplot2::ggplot(data = mpg, aes(x = hwy, y = cty)) +
 ### 4
 Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
 
-```{r, fig.height=3}
+```{r, fig.height=4}
 ggplot2::ggplot(data = mpg, aes(x = class, y = drv)) +
   ggplot2::geom_point()
 ```
@@ -52,9 +52,9 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = drv)) +
 ### Extention
 To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and colour the points by `drv` (more on this in the next section)
 
-```{r}
-ggplot2::ggplot(data = mpg) + 
-  ggplot2::geom_point(mapping = aes(x = class, y = cty, colour = drv))
+```{r, fig.height=5}
+ggplot2::ggplot(data = mpg, aes(x = class, y = cty, colour = drv)) + 
+  ggplot2::geom_point()
 ```
 
 ## Solutions: Section 2
@@ -64,11 +64,11 @@ ggplot2::ggplot(data = mpg) +
 What's wrong with this code? Why aren't the points blue?
 <div class="columns-2">
 ```{r, fig.height=3, fig.width=5}
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy, colour = "blue"))
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = "blue")) +
+  ggplot2::geom_point()
 
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy), colour = "blue")
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point(colour = "blue")
 ```
 </div>
 
@@ -97,7 +97,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = drv)) +
 
 What happens if you map the same variable to multiple aesthetics?
 
-```{r,fig.height=3}
+```{r,fig.height=5}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = drv, shape = drv)) +
   ggplot2::geom_point()
 ```

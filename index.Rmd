@@ -237,8 +237,8 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ```{r, fig.height=3, fig.width=5}
 # What's wrong with this code? Why aren't the points blue?
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy, colour = "blue"))
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = "blue")) +
+  ggplot2::geom_point()
 ```
 
 ---
