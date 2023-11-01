@@ -80,13 +80,11 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.3.0",
+      "Version": "3.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "23abf173c2b783dcc43379ab9bba00ee",
-      "Requirements": [
-        "glue"
-      ]
+      "Hash": "89e6d8219950eac806ae0c489052048a",
+      "Requirements": []
     },
     "colorspace": {
       "Package": "colorspace",
@@ -106,12 +104,13 @@
     },
     "dplyr": {
       "Package": "dplyr",
-      "Version": "1.0.9",
+      "Version": "1.1.3",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f0bda1627a7f5d3f9a0b5add931596ac",
+      "Hash": "e85ffbebaad5f70e1a2e2ef4302b4949",
       "Requirements": [
         "R6",
+        "cli",
         "generics",
         "glue",
         "lifecycle",
@@ -121,16 +120,6 @@
         "tibble",
         "tidyselect",
         "vctrs"
-      ]
-    },
-    "ellipsis": {
-      "Package": "ellipsis",
-      "Version": "0.3.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077",
-      "Requirements": [
-        "rlang"
       ]
     },
     "evaluate": {
@@ -315,11 +304,12 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "1.0.1",
+      "Version": "1.0.3",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "a6b6d352e3ed897373ab19d8395c98d0",
+      "Repository": "RSPM",
+      "Hash": "001cecbeac1cff9301bdc3775ee46a86",
       "Requirements": [
+        "cli",
         "glue",
         "rlang"
       ]
@@ -354,6 +344,24 @@
         "nlme"
       ]
     },
+    "mojchart": {
+      "Package": "mojchart",
+      "Version": "0.0.0.9001",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "moj-analytical-services",
+      "RemoteRepo": "mojchart",
+      "RemoteRef": "main",
+      "RemoteSha": "7689b17c62ab476ccb0c87db70613aeb0dc4fcf7",
+      "Hash": "8086d3253644402707a65b3179664346",
+      "Requirements": [
+        "dplyr",
+        "ggplot2",
+        "glue",
+        "rlang"
+      ]
+    },
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.0",
@@ -376,10 +384,10 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.8.0",
+      "Version": "1.9.0",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f95cf85794546c4ac2b9a6ca42e671ff",
+      "Repository": "RSPM",
+      "Hash": "15da5a8412f317beeee6175fbc76f4bb",
       "Requirements": [
         "cli",
         "fansi",
@@ -397,17 +405,6 @@
       "Repository": "CRAN",
       "Hash": "01f28d4278f15c76cddbea05899c5d6f",
       "Requirements": []
-    },
-    "purrr": {
-      "Package": "purrr",
-      "Version": "0.3.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "97def703420c8ab10d8f0e6c72101e02",
-      "Requirements": [
-        "magrittr",
-        "rlang"
-      ]
     },
     "rappdirs": {
       "Package": "rappdirs",
@@ -427,10 +424,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.4",
+      "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "6539dd8c651e67e3b55b5ffea106362b",
+      "Repository": "RSPM",
+      "Hash": "a85c767b55f0bf9b7ad16c6d7baee5bb",
       "Requirements": []
     },
     "rmarkdown": {
@@ -493,24 +490,27 @@
     },
     "stringr": {
       "Package": "stringr",
-      "Version": "1.4.0",
+      "Version": "1.5.0",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0759e6b6c0957edb1311028a49a35e76",
+      "Repository": "RSPM",
+      "Hash": "671a4d384ae9d32fc47a14e98bfa3dc8",
       "Requirements": [
+        "cli",
         "glue",
+        "lifecycle",
         "magrittr",
-        "stringi"
+        "rlang",
+        "stringi",
+        "vctrs"
       ]
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.7",
+      "Version": "3.2.1",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "08415af406e3dd75049afef9552e7355",
+      "Repository": "RSPM",
+      "Hash": "a84e2cc86d07289b3b6f5069df7a004c",
       "Requirements": [
-        "ellipsis",
         "fansi",
         "lifecycle",
         "magrittr",
@@ -522,16 +522,17 @@
     },
     "tidyselect": {
       "Package": "tidyselect",
-      "Version": "1.1.2",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "17f6da8cfd7002760a859915ce7eef8f",
+      "Repository": "RSPM",
+      "Hash": "79540e5fcd9e0435af547d885f184fd5",
       "Requirements": [
-        "ellipsis",
+        "cli",
         "glue",
-        "purrr",
+        "lifecycle",
         "rlang",
-        "vctrs"
+        "vctrs",
+        "withr"
       ]
     },
     "tinytex": {
@@ -554,26 +555,15 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.4.1",
+      "Version": "0.6.4",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "8b54f22e2a58c4f275479c92ce041a57",
+      "Repository": "RSPM",
+      "Hash": "266c1ca411266ba8f365fcc726444b87",
       "Requirements": [
         "cli",
         "glue",
+        "lifecycle",
         "rlang"
-      ]
-    },
-    "viridis": {
-      "Package": "viridis",
-      "Version": "0.6.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "ee96aee95a7a563e5496f8991e9fde4b",
-      "Requirements": [
-        "ggplot2",
-        "gridExtra",
-        "viridisLite"
       ]
     },
     "viridisLite": {
