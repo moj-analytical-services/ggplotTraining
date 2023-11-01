@@ -559,17 +559,22 @@ In R Markdown or R Shiny: ggplot call will create the plot in situ.
 
 ### References
 
-- Cheatsheet: https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
-- Quick reference: http://r-statistics.co/ggplot2-cheatsheet.html
+- Cheatsheet: https://rstudio.github.io/cheatsheets/data-visualization.pdf
+- ggplot2 website: https://ggplot2.tidyverse.org/
+- ggplot2 book: https://ggplot2-book.org/
 
 ### Extras
 
 - The R Graph Gallery: https://www.r-graph-gallery.com/index.html
+- mojchart: https://github.com/moj-analytical-services/mojchart
+- Further resources: https://trello.com/c/id9ir0Mf/18-r-charting-mapping-etc
 
 ### Alternatives
 
-- qplot: the ggplot2 library has a quick plotting function, qplot(). It is similar to (but a bit nicer than) the base plot() function, and can be useful for creating plots quickly. It is still recommended to use ggplot() function as it is easier to create complex plots. Find out more about qplot here: http://ggplot2.tidyverse.org/reference/qplot.html
-- Plotly: Plotly is a Javascript framework for creating interactive charts. The plotly R library has its own grammar for constructing charts, with power and flexibility rivalling that of ggplot2. However, it also has a function, ggplotly(), which can turn a ggplot chart into an interactive chart. Find out more here: https://plot.ly/r/
+- Plotly: Plotly is a Javascript framework for creating interactive charts. The plotly R library 
+has its own grammar for constructing charts, with power and flexibility rivalling that of ggplot2. 
+However, it also has a function, ggplotly(), which can turn a ggplot chart into an interactive 
+chart. Find out more here: https://plot.ly/r/
 
 
 
