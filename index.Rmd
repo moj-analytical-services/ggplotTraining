@@ -276,11 +276,9 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 # Other geoms
 
 ## Geoms
-There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is the cheat sheet. This can be found at https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf
+There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is 
+the cheat sheet. This can be found at https://rstudio.github.io/cheatsheets/data-visualization.pdf
 
-```{r, echo=FALSE, out.width="600px"}
-knitr::include_graphics("images/cheatsheet.png")
-```
 
 ## geom_smooth()
 
