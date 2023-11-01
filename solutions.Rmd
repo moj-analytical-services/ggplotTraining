@@ -111,15 +111,6 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
   ggplot2::geom_point() 
 ```
 
-#### 4.1
-
-You may have got this instead:
-```{r, fig.height = 3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point()
-```
-
 ## Solutions: Section 3
 
 
@@ -130,6 +121,12 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point(aes(colour = class))
 ```
 
+You may have got this instead:
+```{r, fig.height = 3}
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
+  ggplot2::geom_smooth() +
+  ggplot2::geom_point()
+```
 
 ###  Extention
 
