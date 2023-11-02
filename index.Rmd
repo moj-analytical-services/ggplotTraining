@@ -23,80 +23,71 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = FALSE)
 
 ### Aim:
 
-Expose you to the "grammar of graphics", to allow you create fancy charts in R
+Present the fundamentals of creating high-quality charts in R with the ggplot2 package.
 
 ### Objectives:
 
 - Introduce ggplot2
-- Understand the grammar of constructing charts
-- Practice creating plots yourself
+- Explain the "grammar of graphics" approach
+- Show how to construct a range of plots
 - Signpost resources
 
-## R Resources
-- This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license)
-
-- It covers all the basic usage of R and is pretty up to date.
+This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license).
 
 ## Part 1
 
 The topics for this first part will include the following:
 
-- Basic R Plotting
-- Grammar of Graphics basics
+- Base R plotting
+- The grammar of graphics
 - Aesthetics
 - Facets
-- Geoms
 
-## Basic plots
-- Base R has some basic plotting functionality, as illustrated here and on the following slide. However, it's quite limited in facility, and the current standard is to use the ggplot2 library, which provides a powerful grammar for creating charts.
+## Base R plotting
 
-Should you need them, the built in plot features can be called with
+Base R has plotting functionality.
 
-- Scatter: `plot()`
-- Histogram: `hist()`
-- Boxplot: `boxplot()`
-
-----------
-
-```{r}
-# Basic Plot
-
-# Set seed for plot
+```{r, fig.height=4, fig.width=5}
+# Random number seed
 set.seed(5)
 
-# Visualise plot
+# Scatter plot
 plot(rnorm(20), rnorm(20))
 ```
 
 # ggplot2 - Basics
 
 ## Grammar of graphics
-Plots in R are now mostly made using ggplot2.
 
-Follows the "grammar of graphics" principle that plots can be made up from:
+The ggplot2 package is a part of the Tidyverse, a popular collection of packages designed for data science.
 
-- Geometric objects (called 'geoms' in ggplot2)
-- Scales
-- Coordinate system
+ggplot2 follows the "grammar of graphics" principles that plots can be composed from:
+
+- A data set
+- Mappings of variables to aesthetic features
+- Geometric objects to represent the data ("geoms")
+- Scales - properties of the visual mappings
+- Facets (for small multiples)
+- A coordinate system
 - Annotations
+- A theme (plot styling)
 
 
 -----
 
-ggplot2 is a part of the Tidyverse, a popular collection of packages designed for data science.
 
 We will use `package::function()` syntax throughout this course instead of `library()` calls.
 This makes it easier to see where functions come from, avoids "function masking" and improves the
 reproducibility and reuseability of code.
 
-One exceptions to this is ggplot2's `aes()` function which is always nested inside other ggplot2 
-functions. We will use the import package to load the `aes()` function as well as the `mpg` dataset:
+Exceptions to this are ggplot2's `aes()` and `vars()` functions which are always nested inside other ggplot2 
+functions. We will use the import package to load those function as well as the `mpg` dataset:
 
 ```{r, highlight=TRUE}
-import::from("ggplot2", "aes", "mpg")
+import::from("ggplot2", "aes", "vars", "mpg")
 ```
 
-We will also import the magrittr pipe:
+We will also import the magrittr pipe operator:
 
 ```{r, highlight=TRUE}
 import::from("magrittr", "%>%")
@@ -112,40 +103,50 @@ have a quick look at the data.
 dplyr::glimpse(mpg)
 ```
 
-`displ` contains the cars engine size
-`hwy` contains the cars fuel efficiency on the motorway, low scores = more fuel consumption
+`displ` contains the cars' engine size in litres\
+`hwy` contains the cars fuel efficiency on the motorway in miles per gallon
 
-## Graphing template
+## A minimal plot
 
-The basic pattern of a ggplot function looks like this:
-
-```{r eval = FALSE}
-# ggplot2 blueprint to making any plot
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
-```
-
-A ggplot object must contain
-
-- the data to be plotted
-- how that data should be mapped to the coordinate system, defined using `aes()` (short for aesthetics).
-- a geometric to draw the aesthetics with
-
----
-
-- ggplot works with layers, each layers is added with the `+` operator.
-- Mappings are always added using the `aes()` command, which can be inside the `ggplot()` or `geom`.
-
-```{r, eval=FALSE}
-# ggplot2 works with layers, each layers is added with the `+` operator.
+```{r, fig.height=3, fig.width=4}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point()
 ```
 
+- Contains data, aesthetic mappings and a geom function
+
+- Add components with the `+` operator
+
+## Setting the aesthetics
+
+- `aes()`can be called inside `ggplot()` or a geom function.
+- Setting aesthetics in a geom function allows you to add layers with different data or aesthetic mappings.
+
 ```{r, fig.height=3, fig.width=4}
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy))
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_point(aes(x = displ, y = cty), colour = "blue")
 ```
+
+## General chart template
+
+```{r eval = FALSE}
+# chart template
+ggplot(data = <DATA>, aes(<MAPPINGS>) )  + 
+  <GEOM_FUNCTION> +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <THEME FUNCTION>
+```
+
+Required:
+
+- data
+- aesthetic mappings
+- a geometric function
+
+The other functions are optional, with default values used if they are not specified.
 
 ## Exercises: Section 1
 
@@ -161,9 +162,9 @@ To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and 
 
 ## Aesthetics
 
-There are plenty of ways to map aesthetics in ggplot.
+Typical aesthetics: x axis position, y axis position, colour, fill, size, alpha (transparency).
 
-For example, we could set the colour of the point to be determined by the vehicle class.
+For example, we can the use the point colour to show the class of vehicle.
 ```{r, fig.height=3, fig.width=6}
 # Aesthetics
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
@@ -172,55 +173,55 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 
 ---
 
-ggplot does some clever things when deciding what colours to use - for factorial variables it will assign each factor a unique colour, whilst for continuous variables it will assign a colour scale. These can be customized (we'll cover this later).
+ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continous colour scale. These can be customised using `scale_` functions (shown later).
 
 ```{r, fig.height=4, fig.width=8}
-# ggplot2 does some clever things when deciding what colours to use
+# ggplot2 looks at the data type to set a default colour scale
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
   ggplot2::geom_point()
 ```
 
 ---
 
-You can also use shapes to distinguish between categories, such as class.
+You could also use shapes to distinguish between categories, such as vehicle class.
 
 But, what's wrong with this plot?
 ```{r, fig.height=4, fig.width=8}
-# You can also use shapes to distinguish between categories, such as class.
+# You can also use shapes to distinguish between categories
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   ggplot2::geom_point()
 ```
 
-
-
 ---
 
-Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to SUV here:
+Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to "suv" here:
 ```{r, fig.height=4, fig.width=8}
 # Some aesthetics are only suitable in certain situations
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   ggplot2::geom_point()
 ```
 
----
+## Scale functions
 
-You can also specify things manually. Hint use `colours()` to get the list of built in colours. Use hex values for any colour `'#28b7b7'`. 
+Use `scale_` functions to set visual properties of the aesthetics, such as colours and axis scales.
 
 ```{r, fig.height=3.5, fig.retina=2}
-# You can also specify things manually
+# Use scale_ functions to set properties of the aesthetics
 dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) %>% 
-  ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer, shape = manufacturer)) +
+  ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer)) +
   ggplot2::geom_point(size = 3) +
-  ggplot2::scale_colour_manual(values = c("audi" = "#28b7b7", "volkswagen" = "violet")) +
-  ggplot2::scale_shape_manual(values = c("audi" = 1, "volkswagen" = 24))
+  ggplot2::scale_colour_manual(values = c("audi" = "#12436D", "volkswagen" = "#28A197")) +
+  ggplot2::scale_x_continuous(limits = c(1, 5))
 ```
 
----
+Hint: use `colours()` to get the list of built-in colours. Use hex values to specify any colour. 
 
-You don't *have* to map aesthetics onto variables; you can specify them manually. For example, you can define the colour of the points:
+## Setting an aesthetic to a fixed value
+
+You can also set an aesthetic to a fixed value, rather than being mapped to a data variable.
 
 ```{r, fig.height=4, fig.width=8}
-# You don't *have* to map aesthetics onto variables; you can specify them manually.
+# Set an aesthetic to a fixed value
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point(colour = "orange")
 ```
@@ -233,8 +234,8 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ```{r, fig.height=3, fig.width=5}
 # What's wrong with this code? Why aren't the points blue?
-ggplot2::ggplot(data = mpg) +
-  ggplot2::geom_point(aes(x = displ, y = hwy, colour = "blue"))
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = "blue")) +
+  ggplot2::geom_point()
 ```
 
 ---
@@ -250,76 +251,29 @@ variable types.
 ### 4
 - What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
 
-## Facets
+## Faceting (small multiples)
 
-Facets are a useful way to separate out variables into subplots.
+Faceting generates subplots for different values of a data variable.
 
-There are two ways of doing this; `ggplot2::facet_wrap()` or `ggplot2::facet_grid()`. The main argument here is an R 'formula', where the faceted variable is preceded by a tilde ~ (e.g. ~class). To facet multiple variables, they can be separated by a tilde (e.g. drv ~ cyl)
+`ggplot2::facet_wrap()` splits the data by the specified variable and wraps the subplots into a grid.
 
 ```{r, fig.height=3}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
-  ggplot2::facet_wrap(~ class, nrow = 2)
+  ggplot2::facet_wrap(vars(class))
 ```
+
+Use `vars()` to specify variables for faceting, in the same way as `aes()` for aesthetics.
 
 ---
 
-You can lay out multiple facets in a grid:
+`ggplot2::facet_grid()` can be used to facet by two variables.
 
 ```{r}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
-  ggplot2::facet_grid(drv ~ class)
+  ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 ```
-
-
-# Other geoms
-
-## Geoms
-There are tons of geoms available in ggplot - the best resource for choosing an appropriate geom is 
-the cheat sheet. This can be found at https://rstudio.github.io/cheatsheets/data-visualization.pdf
-
-
-## geom_smooth()
-
-`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
-
-```{r, fig.height=4}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-```
-
----
-
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
-
-```{r, fig.height=3}
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-```
-
-## Exercise: Section 3
-
-### 1
-
-**Can you reproduce this plot?** 
-Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
-
-```{r, fig.height=3, echo=FALSE}
-# Note that the points vary in `colour` based on the cars `class` but the smooth line does not.
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point(aes(colour = class))
-```
-
----
-
-### Extension
-
-Try removing the confidence interval from the smooth line. Also try changing the linetype to dashed or dotted.
 
 ## Part 2
 
@@ -460,7 +414,28 @@ ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_point()
 ```
 
-## Exercises: Section 4
+## geom_smooth()
+
+`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
+
+```{r, fig.height=4}
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth()
+```
+
+---
+
+We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
+
+```{r, fig.height=3}
+# We can add the points as well, using the + operator
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth() +
+  ggplot2::geom_point() +
+  ggplot2::geom_line(aes(x = 4.5))
+```
+
+## Exercises: Section 3
 
 1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
 
@@ -571,12 +546,11 @@ ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
   mojchart::theme_gss(xlabel = TRUE)
 ```
 
-## Exercises: Section 5
+## Exercises: Section 4
 
 1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
     + *Hint*: here is some code to start you off:
     ```{r, eval=FALSE, results=FALSE}
-    # Exercises: Section 5
     ggplot2::ggplot(data = mpg) +
        ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
     ```
