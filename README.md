@@ -4,7 +4,7 @@ This introduction to R charting using ggplot2 is suitable for those who have com
 [Intro R training](https://github.com/moj-analytical-services/IntroRTraining) or have at least 
 reached an equivalent standard to having done this.  
 
-## For Attendeeds
+## For attendees
 
 You will find the following documents useful:
 
@@ -19,7 +19,7 @@ through the material by yourself please leave feedback about the material
 
 **Please contact [Aidan Mews](aidan.mews@justice.gov.uk) if you have any questions.**
 
-## For Presenters
+## For presenters
 
 * `index.Rmd` is the markdown for the presentation slides (knitted to `index.html`).
 * The Github.io page with the presentation should deploy after each PR to the `master` branch.
