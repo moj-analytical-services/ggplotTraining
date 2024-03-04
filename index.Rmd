@@ -328,7 +328,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ---
 
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
+We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be drawn on top (and obscure) the line. 
 
 ```{r, fig.height=3}
 # We can add the points as well, using the + operator
