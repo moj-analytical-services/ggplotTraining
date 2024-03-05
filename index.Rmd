@@ -486,7 +486,7 @@ plot2 <-
   ggplot2::labs(title = "Fuel efficiency comparison", 
                 subtitle = "Note: the points are jittered", 
                 x = "City fuel efficiency", 
-                y = "Highway fuel efficienty")
+                y = "Highway fuel efficiency")
 
 ```
 
