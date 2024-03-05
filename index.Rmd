@@ -160,6 +160,18 @@ The other functions are optional, with default values used if they are not speci
 To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and colour the points by 
 `drv` (more on this in the next section)
 
+### Note
+
+The first time you plot something in each R session on the Analytical Platform you may get the 
+following warning. You can ignore it.
+
+```
+Warning message:
+In grSoftVersion() :
+  unable to load shared object '/usr/local/lib/R/modules//R_X11.so':
+  libXt.so.6: cannot open shared object file: No such file or directory
+```
+
 ## Aesthetics
 
 Typical aesthetics: x axis position, y axis position, colour, fill, size, alpha (transparency).
@@ -173,7 +185,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 
 ---
 
-ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continous colour scale. These can be customised using `scale_` functions (shown later).
+ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continuous colour scale. These can be customised using `scale_` functions (shown later).
 
 ```{r, fig.height=4, fig.width=8}
 # ggplot2 looks at the data type to set a default colour scale
@@ -283,6 +295,50 @@ The topics for the second part will include:
 - Chart Positioning 
 - Themes, titles and Multiple Plots
 
+## Avoiding overplotting
+
+What is wrong with this plot?
+
+```{r, fig.height=3}
+# What is wrong with this plot?
+ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_point()
+```
+
+---
+
+Because there are multiple observations, some are **overplotted**. To correct this, you can add some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit of a compromise - you either have a chart that is accurate but suffers from over plotting, or one that contains some random noise but reveals the size of the data.
+
+```{r, fig.height=3}
+# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+# some random noise to the data with `position="jitter"` or `geom_jitter`.
+ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_jitter(colour = 'red') +
+  ggplot2::geom_point()
+```
+
+## Fitted lines
+
+`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
+
+```{r, fig.height=3}
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth()
+```
+
+---
+
+We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be drawn on top (and obscure) the line. 
+
+```{r, fig.height=3}
+# We can add the points as well, using the + operator
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_smooth() +
+  ggplot2::geom_point() +
+  ggplot2::geom_line(aes(x = 4.5))
+```
+
+
 
 ## Bar charts
 Counts of a single discrete variable.
@@ -306,8 +362,6 @@ mpg %>%
   ggplot2::geom_col() 
 ```
 
-
-# Positioning
 
 ## Bar chart positioning
 
@@ -392,49 +446,6 @@ ggplot2::economics %>%
 ```
 
 
----
-
-What is wrong with this plot?
-
-```{r}
-# What is wrong with this plot?
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_point()
-```
-
----
-
-Because there are multiple observations, some are **overplotted**. To correct this, you can add some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit of a compromise - you either have a chart that is accurate but suffers from over plotting, or one that contains some random noise but reveals the size of the data.
-
-```{r, fig.height=3}
-# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
-# some random noise to the data with `position="jitter"` or `geom_jitter`.
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::geom_point()
-```
-
-## geom_smooth()
-
-`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
-
-```{r, fig.height=4}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-```
-
----
-
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be draw on top (and obscure) the line. 
-
-```{r, fig.height=3}
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-```
-
 ## Exercises: Section 3
 
 1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
@@ -445,10 +456,10 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 *Hint* You will need to supply a new geom layer with a new aesthetic mapping.
 
-# Themes, titles, and multiple plots
+# Labels, Themes, and multiple plots
 
-## Titles
-Labels and titles can be added using the labs command.
+## Lables
+Labels and titles can be added using the `labs()` layer.
 
 ```{r, fig.height=3}
 # Themes, titles, and multiple plots
@@ -462,21 +473,20 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = ..prop.., group = 1)) +
 Plots can be arranged using the `grid.arrange` command from the `gridExtra` package. First we store the plots in a variable using the `<-` operator.
 ```{r}
 # Multiple plots
-plot1<-
+plot1 <-
   ggplot2::ggplot(data = mpg, aes(x = cyl, y = ..prop.., group = 1)) +
   ggplot2::geom_bar(fill = "red") +
-  ggplot2::labs(title = "Proportion of sample by cylinder", 
-                x = "Cylinder", 
-                y = "Proportion", 
-                subtitle = " ")
+  ggplot2::labs(title = "Proportion of sample by engine type", 
+                x = "Number of cylinders", 
+                y = "Proportion")
 
-plot2<-
+plot2 <-
   ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::labs(title = "Highway fuel efficiency\number of cylinders", 
-                subtitle = "Note, the points are jittered", 
-                x = "Number of cylinders", 
-                y = "Fuel efficiency")
+  ggplot2::labs(title = "Fuel efficiency comparison", 
+                subtitle = "Note: the points are jittered", 
+                x = "City fuel efficiency", 
+                y = "Highway fuel efficiency")
 
 ```
 
@@ -525,7 +535,8 @@ plot2 + ugly_theme
 
 ---
 
-Pre-built MoJ and Government Analysis Function themes and colour schemes are available in the `mojchart` package.
+Pre-built MoJ and Government Analysis Function themes and colour schemes are available in the 
+`mojchart` package (https://github.com/moj-analytical-services/mojchart).
 
 ```{r, fig.height=3}
 # MoJ colour scheme
