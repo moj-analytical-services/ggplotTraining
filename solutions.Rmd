@@ -41,20 +41,13 @@ ggplot2::ggplot(data = mpg, aes(x = hwy, y = cty)) +
 ```
 
 ### 1.4
-Make a scatter plot of `class` vs. `drv`. Why isn't this plot useful?
+Make a scatter plot of urban fuel consumption vs engine size (displacement). 
 
 ```{r, fig.height=4}
-ggplot2::ggplot(data = mpg, aes(x = class, y = drv)) +
+ggplot2::ggplot(data = mpg, aes(x = displ, y = cty)) +
   ggplot2::geom_point()
 ```
 
-### Extention
-To fix the problem with exercise 4, make a scatter plot of `class` vs `cty` and colour the points by `drv` (more on this in the next section)
-
-```{r, fig.height=5}
-ggplot2::ggplot(data = mpg, aes(x = class, y = cty, colour = drv)) + 
-  ggplot2::geom_point()
-```
 
 ## Solutions: Section 2
 
