@@ -95,7 +95,7 @@ import::from("magrittr", "%>%")
 
 ## Loading the data
 
-For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package. It contains 
+**For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package.** It contains 
 information on cars fuel efficiency. We can use `dplyr::glimpse(mpg)` or `head(mpg)` or `mpg` to 
 have a quick look at the data.   
 ```{r}
