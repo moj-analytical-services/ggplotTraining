@@ -15,7 +15,6 @@ output:
 ```{r, include=FALSE}
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=FALSE)
 import::from("ggplot2", "aes", "mpg")
-import::from("magrittr", "%>%")
 
 ```
 
@@ -138,7 +137,7 @@ ggplot2::ggplot(data = mpg, aes(x = cty, fill = drv)) +
 Recreate the US unemployed population line graph. Add another line to show the total population. 
 
 ```{r, fig.height = 3}
-ggplot2::economics %>% 
+ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line() +
   ggplot2::geom_line(aes(x = date, y = pop))

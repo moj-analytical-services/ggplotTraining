@@ -80,18 +80,14 @@ We will use `package::function()` syntax throughout this course instead of `libr
 This makes it easier to see where functions come from, avoids "function masking" and improves the
 reproducibility and reuseability of code.
 
-Exceptions to this are ggplot2's `aes()` and `vars()` functions which are always nested inside other ggplot2 
-functions. We will use the import package to load those function as well as the `mpg` dataset:
+Exceptions to this are ggplot2's `aes()` and `vars()` functions which are always nested inside 
+other ggplot2 functions. We will use the import package to load those function as well as the 
+`mpg` dataset:
 
 ```{r, highlight=TRUE}
 import::from("ggplot2", "aes", "vars", "mpg")
 ```
 
-We will also import the magrittr pipe operator:
-
-```{r, highlight=TRUE}
-import::from("magrittr", "%>%")
-```
 
 ## Loading the data
 
@@ -161,7 +157,6 @@ You will need to run the following first to import the necessary functions and d
 
 `import::from("ggplot2", "aes", "vars", "mpg")`
 
-`import::from("magrittr", "%>%")`
 
 ## Aesthetics
 
@@ -210,7 +205,7 @@ Use `scale_` functions to set visual properties of the aesthetics, such as colou
 
 ```{r, fig.height=3.5, fig.retina=2}
 # Use scale_ functions to set properties of the aesthetics
-dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) %>% 
+dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) |> 
   ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer)) +
   ggplot2::geom_point(size = 3) +
   ggplot2::scale_colour_manual(values = c("audi" = "#12436D", "volkswagen" = "#28A197")) +
@@ -346,9 +341,9 @@ Bar charts from tabulated data.
 
 ```{r, fig.height=3, fig.width=9}
 # Bar charts from tabulated data
-mpg %>% 
-  dplyr::group_by(class) %>% 
-  dplyr::summarise(count = dplyr::n()) %>% 
+mpg |>
+  dplyr::group_by(class) |> 
+  dplyr::summarise(count = dplyr::n()) |> 
   ggplot2::ggplot(aes(x = class, y = count)) +
   ggplot2::geom_col() 
 ```
@@ -431,7 +426,7 @@ US unemployment population data
 
 ```{r, fig.height=3}
 # Line charts
-ggplot2::economics %>% 
+ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()
 ```

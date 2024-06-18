@@ -3272,10 +3272,6 @@ plot(rnorm(20), rnorm(20))</pre>
 
 <pre class = 'prettyprint lang-r'>import::from(&quot;ggplot2&quot;, &quot;aes&quot;, &quot;vars&quot;, &quot;mpg&quot;)</pre>
 
-<p>We will also import the magrittr pipe operator:</p>
-
-<pre class = 'prettyprint lang-r'>import::from(&quot;magrittr&quot;, &quot;%&gt;%&quot;)</pre>
-
 </article></slide><slide class=""><hgroup><h2>Loading the data</h2></hgroup><article  id="loading-the-data" class="smaller ">
 
 <p><strong>For this intro we’ll use the dataset <code>mpg</code>, which is included in the ggplot2 package.</strong> It contains information on cars fuel efficiency. We can use <code>dplyr::glimpse(mpg)</code> or <code>head(mpg)</code> or <code>mpg</code> to have a quick look at the data.</p>
@@ -3359,8 +3355,6 @@ ggplot(data = &lt;DATA&gt;, aes(&lt;MAPPINGS&gt;) )  +
 
 <p><code>import::from(&quot;ggplot2&quot;, &quot;aes&quot;, &quot;vars&quot;, &quot;mpg&quot;)</code></p>
 
-<p><code>import::from(&quot;magrittr&quot;, &quot;%&gt;%&quot;)</code></p>
-
 </article></slide><slide class=""><hgroup><h2>Aesthetics</h2></hgroup><article  id="aesthetics" class="smaller ">
 
 <p>Typical aesthetics: x axis position, y axis position, colour, fill, size, alpha (transparency).</p>
@@ -3410,7 +3404,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = clas
 <p>Use <code>scale_</code> functions to set visual properties of the aesthetics, such as colours and axis scales.</p>
 
 <pre class = 'prettyprint lang-r'># Use scale_ functions to set properties of the aesthetics
-dplyr::filter(mpg, manufacturer %in% c(&#39;audi&#39;, &#39;volkswagen&#39;)) %&gt;% 
+dplyr::filter(mpg, manufacturer %in% c(&#39;audi&#39;, &#39;volkswagen&#39;)) |&gt; 
   ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer)) +
   ggplot2::geom_point(size = 3) +
   ggplot2::scale_colour_manual(values = c(&quot;audi&quot; = &quot;#12436D&quot;, &quot;volkswagen&quot; = &quot;#28A197&quot;)) +
@@ -3556,9 +3550,9 @@ ggplot2::ggplot(data = mpg, aes(x = class)) +
 <p>Bar charts from tabulated data.</p>
 
 <pre class = 'prettyprint lang-r'># Bar charts from tabulated data
-mpg %&gt;% 
-  dplyr::group_by(class) %&gt;% 
-  dplyr::summarise(count = dplyr::n()) %&gt;% 
+mpg |&gt;
+  dplyr::group_by(class) |&gt; 
+  dplyr::summarise(count = dplyr::n()) |&gt; 
   ggplot2::ggplot(aes(x = class, y = count)) +
   ggplot2::geom_col() </pre>
 
@@ -3640,7 +3634,7 @@ ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
 <p>US unemployment population data</p>
 
 <pre class = 'prettyprint lang-r'># Line charts
-ggplot2::economics %&gt;% 
+ggplot2::economics |&gt; 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()</pre>
 
