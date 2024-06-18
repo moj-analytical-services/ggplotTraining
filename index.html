@@ -3657,7 +3657,7 @@ ggplot2::economics |&gt;
 <p>Labels and titles can be added using the <code>labs()</code> layer.</p>
 
 <pre class = 'prettyprint lang-r'># Themes, titles, and multiple plots
-ggplot2::ggplot(data = mpg, aes(x = class, y = ..prop.., group = 1)) +
+ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar() +
   ggplot2::labs(title = &quot;Proportion of sample by class&quot;, x = &quot;Class&quot;, y = &quot;Proportion&quot;)</pre>
 
@@ -3669,7 +3669,7 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = ..prop.., group = 1)) +
 
 <pre class = 'prettyprint lang-r'># Multiple plots
 plot1 &lt;-
-  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ..prop.., group = 1)) +
+  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar(fill = &quot;red&quot;) +
   ggplot2::labs(title = &quot;Proportion of sample by engine type&quot;, 
                 x = &quot;Number of cylinders&quot;, 

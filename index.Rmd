@@ -449,7 +449,7 @@ Labels and titles can be added using the `labs()` layer.
 
 ```{r, fig.height=3}
 # Themes, titles, and multiple plots
-ggplot2::ggplot(data = mpg, aes(x = class, y = ..prop.., group = 1)) +
+ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar() +
   ggplot2::labs(title = "Proportion of sample by class", x = "Class", y = "Proportion")
 ```
@@ -460,7 +460,7 @@ Plots can be arranged using the `grid.arrange` command from the `gridExtra` pack
 ```{r}
 # Multiple plots
 plot1 <-
-  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ..prop.., group = 1)) +
+  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar(fill = "red") +
   ggplot2::labs(title = "Proportion of sample by engine type", 
                 x = "Number of cylinders", 
