@@ -24,7 +24,7 @@ through the material by yourself please leave feedback about the material
 ### Set up instructions
 * [Ensure you have access to the Analytical Platform](https://user-guidance.analytical-platform.service.justice.gov.uk/get-started.html#quickstart-guide).
 * [Ensure you have linked RStudio and GitHub with an SSH key](https://user-guidance.analytical-platform.service.justice.gov.uk/github/set-up-github.html).
-* [Clone](https://user-guidance.analytical-platform.service.justice.gov.uk/github/rstudio-git.html#work-with-git-in-rstudio) the [R Charting repo](https://github.com/moj-analytical-services/ggplotTraining) as an RStudio project.
+* [Clone](https://user-guidance.analytical-platform.service.justice.gov.uk/github/rstudio-git.html#work-with-git-in-rstudio) this repo as an RStudio project.
 * Run `renv::restore()` to install the required R packages.
 
 <br>
