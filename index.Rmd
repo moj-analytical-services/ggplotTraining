@@ -146,7 +146,7 @@ The other functions are optional, with default values used if they are not speci
 
 ## Exercises: Section 1
 
-1. Run `ggplot2::ggplot(data = mpg)` what do you see?
+1. Run `ggplot2::ggplot(mpg, aes(x = displ, y = cty))`. Why is the data not plotted?
 2. What does the `drv` variable describe? Read the help for mpg data set to find out by running `?mpg`
 3. Make a scatter plot of `hwy` vs. `cty`
 4. Make a scatter plot of urban fuel consumption vs engine size (displacement). 
