@@ -181,23 +181,14 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
 
 ---
 
-You could also use shapes to distinguish between categories, such as vehicle class.
+You could also use the point shape to distinguish between categories. For example, we use it here in addition to colour to show the vehicle class. 
 
-But, what's wrong with this plot?
 ```{r, fig.height=4, fig.width=8}
-# You can also use shapes to distinguish between categories
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   ggplot2::geom_point()
 ```
 
----
-
-Some aesthetics are only suitable in certain situations. For example, using `shape` for `class` isn't appropriate as, by default, shape only supports 6 distinct categories (you can override this manually). Notice what has happened to "suv" here:
-```{r, fig.height=4, fig.width=8}
-# Some aesthetics are only suitable in certain situations
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
-  ggplot2::geom_point()
-```
+But note there is a problem: suv is missing from the plot because by default, shape only supports six categories (you can override this manually). Some aesthetics are only suitable in certain situations.
 
 ## Scale functions
 
