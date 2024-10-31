@@ -32,11 +32,6 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
   ggplot2::geom_point()
 
-# You can also use shapes to distinguish between categories
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
-  ggplot2::geom_point()
-
-# Some aesthetics are only suitable in certain situations
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   ggplot2::geom_point()
 
