@@ -23,7 +23,7 @@ import::from("ggplot2", "aes", "mpg")
 ### 1.1
 
 ```{r}
-ggplot2::ggplot(data = mpg)
+ggplot2::ggplot(mpg, aes(x = displ, y = cty))
 ```
 
 ### 1.2
