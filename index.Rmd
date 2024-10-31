@@ -14,7 +14,7 @@ output:
     highlight: tango
 ---
 
-```{r, include=FALSE}
+```{r, include=FALSE, purl=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = FALSE)
 
 ```
