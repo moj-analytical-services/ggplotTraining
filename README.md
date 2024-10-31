@@ -14,8 +14,9 @@ You will find the following documents useful:
 * [R_code_participant.R](R_code_participant.R) - this script contains the code used in the training session  
   
 This training session is run in person/over Teams every few months. Alternatively, you can go 
-through this material in your own time - you can find recordings of a previous session 
-[here](https://web.microsoftstream.com/channel/aa3cda5d-99d6-4e9d-ac5e-6548dd55f52a). If you work 
+through this material in your own time. Recordings of these sessions can be viewed via links 
+provided in the [Analytical Platform and related tools training section on R training](https://moj-analytical-services.github.io/ap-tools-training/ITG.html#r-training). If you 
+have any access problems please contact <aidan.mews@justice.gov.uk>.If you work 
 through the material by yourself please leave feedback about the material 
 [here](https://airtable.com/shr9u2OJB2pW8Y0Af).  
 
