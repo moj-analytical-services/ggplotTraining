@@ -264,6 +264,19 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 ```
 
+## Interactive plots - the plotly package
+
+The [plotly](https://github.com/plotly/plotly.R) package can be used to convert ggplot2 static plots into interactive plots.
+
+```{r, fig.height=3.5, fig.width=7}
+# Use ggplotly() to create a plotly interactive chart
+plot <- ggplot2::ggplot(data = mpg, aes(x = displ, y = cty, colour = class)) +
+  ggplot2::geom_point() 
+plotly::ggplotly(plot)
+```
+
+Plotly objects can also be created directly. (Beyond the scope of this course.)
+
 ## Part 2
 
 The topics for the second part will include:
