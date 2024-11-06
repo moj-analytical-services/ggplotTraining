@@ -58,6 +58,11 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
   ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 
+# Use ggplotly() to create a plotly interactive chart
+plot <- ggplot2::ggplot(data = mpg, aes(x = displ, y = cty, colour = class)) +
+  ggplot2::geom_point() 
+plotly::ggplotly(plot)
+
 # What is wrong with this plot?
 ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_point()
