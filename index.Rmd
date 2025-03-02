@@ -344,10 +344,19 @@ ggplot2::ggplot(data = mpg, aes(x = class)) +
 Bar charts from tabulated data.
 
 ```{r, fig.height=3, fig.width=9}
-# Bar charts from tabulated data
-mpg |>
+# Sometimes you might start with tabulated, rather than flat data
+mpg_summary <- mpg |>
   dplyr::group_by(class) |> 
-  dplyr::summarise(count = dplyr::n()) |> 
+  dplyr::summarise(count = dplyr::n()) 
+
+head(mpg_summary)
+```
+
+---
+
+```{r, fig.height=3, fig.width=9}
+# Bar charts from tabulated data
+mpg_summary |> 
   ggplot2::ggplot(aes(x = class, y = count)) +
   ggplot2::geom_col() 
 ```
