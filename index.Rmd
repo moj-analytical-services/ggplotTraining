@@ -32,7 +32,7 @@ Present the fundamentals of creating high-quality charts in R with the ggplot2 p
 - Show how to construct a range of plots
 - Signpost resources
 
-This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license).
+This workshop is based on the free eBook "R for Data Science" https://r4ds.hadley.nz (reproduced here under CC BY-NC-ND 3.0 US license).
 
 ## Part 1
 
@@ -448,7 +448,7 @@ ggplot2::economics |>
 
 # Labels, Themes, and multiple plots
 
-## Lables
+## Labels
 Labels and titles can be added using the `labs()` layer.
 
 ```{r, fig.height=3}
