@@ -269,50 +269,6 @@ The topics for the second part will include:
 - Chart Positioning 
 - Themes, titles and Multiple Plots
 
-## Avoiding overplotting
-
-What is wrong with this plot?
-
-```{r, fig.height=3}
-# What is wrong with this plot?
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_point()
-```
-
----
-
-Because there are multiple observations, some are **overplotted**. To correct this, you can add some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit of a compromise - you either have a chart that is accurate but suffers from over plotting, or one that contains some random noise but reveals the size of the data.
-
-```{r, fig.height=3}
-# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
-# some random noise to the data with `position="jitter"` or `geom_jitter`.
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::geom_point()
-```
-
-## Fitted lines
-
-`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
-
-```{r, fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-```
-
----
-
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be drawn on top (and obscure) the line. 
-
-```{r, fig.height=3}
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-```
-
-
 
 ## Bar charts
 Counts of a single discrete variable.
@@ -360,7 +316,8 @@ mpg_summary |>
 
 How could this chart be made easier to use?
 
-Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the lines around the bar.
+Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the 
+lines around the bar.
 
 ```{r, fig.height=3, fig.width=10}
 # Bar chart positioning
@@ -370,7 +327,9 @@ ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
 
 ---
 
-By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument. 'dodge' places bars next to each other, whilst 'fill' makes them all the same length (to allow for easier comparison).
+By default bars are "stacked" on top of each other. This makes comparing proportions rather 
+difficult. You can control this with the position argument. 'dodge' places bars next to each other, 
+whilst 'fill' makes them all the same length (to allow for easier comparison).
 
 ```{r, fig.height=3, fig.width=10}
 # By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
@@ -378,6 +337,35 @@ By default bars are "stacked" on top of each other. This makes comparing proport
 ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
   ggplot2::geom_bar(colour = 'black', position = 'dodge') 
 ```
+
+
+## Fitted lines
+
+The `ggplot2::geom_smooth()` geom takes data points and returns a regression model with confidence 
+intervals. For example, when plotting `hwy ~ displ` if we use `ggplot2::geom_smooth()` we get a 
+loess curve. Note that we are plotting a `ggplot2::geom_point()` geometry as well using the `+` 
+operator for each additional layer. The order of layers determines their order on the plot. As 
+points are before the smooth line, they will be drawn under it. 
+
+```{r, fig.height=3}
+# Add a fitted line to a scatter plot
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth()
+```
+
+---
+
+We can manually control the type of smooth fit with the `method` argument. For example if we set it 
+to `method = "lm"` we fit a linear model. For more information see `?ggplot2::geom_smooth()`.
+
+```{r, fig.height=3}
+# Ensure the fitted line is a linear model
+ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm")
+```
+
 
 ## Density plots and histograms
 
@@ -425,6 +413,33 @@ ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
   ggplot2::geom_violin(aes(fill = drv))
 ```
 
+
+## Avoiding overplotting
+
+What is wrong with this plot?
+
+```{r, fig.height=3}
+# What is wrong with this plot?
+ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_point()
+```
+
+---
+
+Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit 
+of a compromise - you either have a chart that is accurate but suffers from over plotting, or one 
+that contains some random noise but reveals the size of the data.
+
+```{r, fig.height=3}
+# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+# some random noise to the data with `position="jitter"` or `geom_jitter`.
+ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_jitter(colour = 'red') +
+  ggplot2::geom_point()
+```
+
+
 ## Line charts
 
 US unemployment population data
@@ -435,6 +450,21 @@ ggplot2::economics |>
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()
 ```
+
+---
+
+You can also use the `ggplot2::geom_line()` geometry with a constant x value to show a significant 
+event in a time series. For example here we mark the start of 2008 =.
+
+```{r, fig.height=3}
+# Line charts
+ggplot2::economics |> 
+  ggplot2::ggplot(aes(x = date, y = unemploy)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_line(aes(x = as.Date("2008-01-01")), col = "blue")
+```
+
+
 
 
 ## Exercises: Section 3
