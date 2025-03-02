@@ -146,10 +146,13 @@ The other functions are optional, with default values used if they are not speci
 
 ## Exercises: Section 1
 
-1. Run `ggplot2::ggplot(mpg, aes(x = displ, y = cty))`. Why is the data not plotted?
-2. What does the `drv` variable describe? Read the help for mpg data set to find out by running `?mpg`
-3. Make a scatter plot of `hwy` vs. `cty`
-4. Make a scatter plot of urban fuel consumption vs engine size (displacement). 
+**1.1** Run `ggplot2::ggplot(mpg, aes(x = displ, y = cty))`. Why is the data not plotted?
+
+**1.2** What does the `drv` variable describe? Read the help for mpg data set to find out by running `?mpg`
+
+**1.3** Make a scatter plot of `hwy` vs. `cty`
+
+**1.4** Make a scatter plot of urban fuel consumption vs engine size (displacement). 
 
 ### Note
 
@@ -217,28 +220,21 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ## Exercises: Section 2
 
-### 1
+2.1 What's wrong with this code? Why aren't the points blue?
 
-- What's wrong with this code? Why aren't the points blue?
-
-```{r, fig.height=3, fig.width=5}
+```{r, fig.height=2, fig.width=7}
 # What's wrong with this code? Why aren't the points blue?
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = "blue")) +
   ggplot2::geom_point()
 ```
 
----
-
-### 2 
-- Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave 
+2.2  Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave 
 differently for categorical vs. continuous variables? Hint: use `dplyr::glimpse(mpg)` to identify 
 variable types.
 
-### 3
-- What happens if you map the same variable to multiple aesthetics?
+2.3 What happens if you map the same variable to multiple aesthetics?
 
-### 4
-- What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
+2.4 What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
 
 ## Faceting (small multiples)
 
@@ -433,11 +429,11 @@ ggplot2::economics |>
 
 ## Exercises: Section 3
 
-1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
+**3.1** Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
 
-2. Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping regions visible.
+**3.2** Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping regions visible.
 
-3. Recreate the US unemployed population line graph. Add another line to show the total population. 
+**3.3** Recreate the US unemployed population line graph. Add another line to show the total population. 
 
 *Hint* You will need to supply a new geom layer with a new aesthetic mapping.
 
@@ -544,20 +540,26 @@ ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
 
 ## Exercises: Section 4
 
-1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
-    + *Hint*: here is some code to start you off:
-    ```{r, eval=FALSE, results=FALSE}
-    ggplot2::ggplot(data = mpg) +
-       ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
-    ```
-2. Change the title and axis labels to something sensible based on what the chart is showing.
-3. Create a custom theme changing:
-    + major gridlines to grey, dashed
-    + removing minor gridlines
-    + x and y axis text to black, pt 10, italic
-    + move the legend position to the bottom of the plot
-4. Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in colour schemes. 
-    + (Number 4 may be homework if we are running out of time!)
+**4.1** Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
+
+*Hint*: here is some code to start you off:
+
+```{r, eval=FALSE, results=FALSE}
+ggplot2::ggplot(data = mpg) +
+   ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
+```
+
+**4.2** Change the title and axis labels to something sensible based on what the chart is showing.
+
+**4.3** Create a custom theme changing:
+  
+  * major gridlines to grey, dashed
+  * removing minor gridlines
+  * x and y axis text to black, pt 10, italic
+  * move the legend position to the bottom of the plot
+
+**4.4** Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in colour schemes. 
+
 
 ## Saving plots
 
