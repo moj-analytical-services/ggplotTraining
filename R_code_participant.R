@@ -58,76 +58,84 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
   ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 
-# Use ggplotly() to create a plotly interactive chart
-plot <- ggplot2::ggplot(data = mpg, aes(x = displ, y = cty, colour = class)) +
-  ggplot2::geom_point() 
-plotly::ggplotly(plot)
+# Flat data
+head(mpg)
 
-# What is wrong with this plot?
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_point()
-
-# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
-# some random noise to the data with `position="jitter"` or `geom_jitter`.
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::geom_point()
-
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-
-# Bar charts counting rows in the data
-ggplot2::ggplot(data = mpg, aes(x = class)) +
+# Bar chart counting rows in the data
+ggplot2::ggplot(mpg, aes(x = class)) +
   ggplot2::geom_bar()
 
-# Bar charts from tabulated data
-mpg |>
+# Sometimes you might start with tabulated, rather than flat data
+mpg_summary <- mpg |>
   dplyr::group_by(class) |> 
-  dplyr::summarise(count = dplyr::n()) |> 
+  dplyr::summarise(count = dplyr::n()) 
+
+head(mpg_summary)
+
+# Bar charts from tabulated data
+mpg_summary |> 
   ggplot2::ggplot(aes(x = class, y = count)) +
   ggplot2::geom_col() 
 
 # Bar chart positioning
-ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
+  ggplot2::geom_bar(colour = 'black') 
 
 # By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
 # You can control this with the position argument.
-ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black', position = 'dodge') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
+  ggplot2::geom_bar(colour = 'black', position = 'dodge') 
+
+# Add a fitted line to a scatter plot
+ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth()
+
+# Ensure the fitted line is a linear model
+ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm")
 
 # Histogram
-ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+ggplot2::ggplot(mpg, aes(x = hwy)) +
   ggplot2::geom_histogram(bins = 30) 
 
 # Density plot
-ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+ggplot2::ggplot(mpg, aes(x = hwy)) +
   ggplot2::geom_density() 
 
 # Overlapping density plots
-ggplot2::ggplot(data = mpg, aes(x = hwy, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = hwy, fill = drv)) +
   ggplot2::geom_density(alpha = 0.5) 
 
 # Box plots
-ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
   ggplot2::geom_boxplot(fill = "red")
 
 # Violin plots
-ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
   ggplot2::geom_violin(aes(fill = drv))
+
+# What is wrong with this plot?
+ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_point()
+
+# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+# some random noise to the data with `position = "jitter"` or `geom_jitter`.
+ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_jitter(colour = 'red') +
+  ggplot2::geom_point()
 
 # Line charts
 ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()
+
+# Line charts
+ggplot2::economics |> 
+  ggplot2::ggplot(aes(x = date, y = unemploy)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_line(aes(x = as.Date("2008-01-01")), col = "blue")
 
 # Themes, titles, and multiple plots
 ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group = 1)) +
@@ -135,15 +143,15 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group 
   ggplot2::labs(title = "Proportion of sample by class", x = "Class", y = "Proportion")
 
 # Multiple plots
-plot1 <-
-  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
+plot1 <- mpg |>
+  ggplot2::ggplot(aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar(fill = "red") +
   ggplot2::labs(title = "Proportion of sample by engine type", 
                 x = "Number of cylinders", 
                 y = "Proportion")
 
-plot2 <-
-  ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+plot2 <- mpg |>
+  ggplot2::ggplot(aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
   ggplot2::labs(title = "Fuel efficiency comparison", 
                 subtitle = "Note: the points are jittered", 
@@ -173,16 +181,22 @@ ugly_theme <-
 plot2 + ugly_theme
 
 # MoJ colour scheme
-ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   ggplot2::geom_bar(position = "dodge") +
   mojchart::scale_fill_moj(n = 3) +
   mojchart::theme_gss(xlabel = TRUE)
 
 # Accessible colour scheme
-ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   ggplot2::geom_bar(position = "dodge") +
   mojchart::scale_fill_moj(n = 3, scheme = "govanal_bars") +
   mojchart::theme_gss(xlabel = TRUE)
 
-## ggplot2::ggplot(data = mpg) +
+## ggplot2::ggplot(mpg) +
 ##    ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
+
+# Use ggplotly() to create a plotly interactive chart
+plot <- ggplot2::ggplot(mpg, aes(x = displ, y = cty, colour = class)) +
+  ggplot2::geom_point() 
+
+plotly::ggplotly(plot)
