@@ -317,15 +317,25 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ## Bar charts
 Counts of a single discrete variable.
 
+If you have flat data, you can use the `ggplot2::geom_bar()` geom to produce a bar chart. This geom
+uses a "count" statistical transformation to turn the flat data into counts by group.
+
+```{r}
+# Flat data
+head(mpg)
+```
+
+## A bar chart from flat data
 ```{r, fig.height=3, fig.width=9}
-# Bar charts counting rows in the data
+# Bar chart counting rows in the data
 ggplot2::ggplot(data = mpg, aes(x = class)) +
   ggplot2::geom_bar()
 ```
 
 ---
 
-Bar charts from tabulated data.
+If you have an existing tabulation, you can use the `ggplot2::geom_col()` geom to produce a bar 
+chart. This geom uses a "identity" statistical transformation to map the values to the shape.
 
 ```{r, fig.height=3, fig.width=9}
 # Sometimes you might start with tabulated, rather than flat data
@@ -336,7 +346,7 @@ mpg_summary <- mpg |>
 head(mpg_summary)
 ```
 
----
+## A bar chart from tabulated data
 
 ```{r, fig.height=3, fig.width=9}
 # Bar charts from tabulated data
