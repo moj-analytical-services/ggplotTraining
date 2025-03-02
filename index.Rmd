@@ -359,23 +359,21 @@ How could this chart be made easier to use?
 
 Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the lines around the bar.
 
-```{r, fig.height=3, fig.width=9}
+```{r, fig.height=3, fig.width=10}
 # Bar chart positioning
 ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+  ggplot2::geom_bar(colour = 'black') 
 ```
 
 ---
 
 By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument. 'dodge' places bars next to each other, whilst 'fill' makes them all the same length (to allow for easier comparison).
 
-```{r, fig.height=3}
+```{r, fig.height=3, fig.width=10}
 # By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
 # You can control this with the position argument.
 ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black', position = 'dodge') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+  ggplot2::geom_bar(colour = 'black', position = 'dodge') 
 ```
 
 ## Density plots and histograms
