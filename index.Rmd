@@ -32,7 +32,8 @@ Present the fundamentals of creating high-quality charts in R with the ggplot2 p
 - Show how to construct a range of plots
 - Signpost resources
 
-This workshop is based on the free eBook "R for Data Science" http://r4ds.had.co.nz (reproduced here under CC BY-NC-ND 3.0 US license).
+This workshop is based on the free eBook "R for Data Science" https://r4ds.hadley.nz (reproduced 
+here under CC BY-NC-ND 3.0 US license).
 
 ## Part 1
 
@@ -59,7 +60,8 @@ plot(rnorm(20), rnorm(20))
 
 ## Grammar of graphics
 
-The ggplot2 package is a part of the Tidyverse, a popular collection of packages designed for data science.
+The ggplot2 package is a part of the Tidyverse, a popular collection of packages designed for data 
+science.
 
 ggplot2 follows the "grammar of graphics" principles that plots can be composed from:
 
@@ -91,9 +93,9 @@ import::from("ggplot2", "aes", "vars", "mpg")
 
 ## Loading the data
 
-**For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package.** It contains 
-information on cars fuel efficiency. We can use `dplyr::glimpse(mpg)` or `head(mpg)` or `mpg` to 
-have a quick look at the data.   
+**For this intro we'll use the dataset `mpg`, which is included in the ggplot2 package.** It 
+contains information on cars fuel efficiency. We can use `dplyr::glimpse(mpg)` or `head(mpg)` or 
+`mpg` to have a quick look at the data.   
 ```{r}
 # Examine the mpg dataset
 dplyr::glimpse(mpg)
@@ -116,7 +118,8 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ## Setting the aesthetics
 
 - `aes()`can be called inside `ggplot()` or a geom function.
-- Setting aesthetics in a geom function allows you to add layers with different data or aesthetic mappings.
+- Setting aesthetics in a geom function allows you to add layers with different data or aesthetic 
+mappings.
 
 ```{r, fig.height=3, fig.width=4}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
@@ -146,10 +149,14 @@ The other functions are optional, with default values used if they are not speci
 
 ## Exercises: Section 1
 
-1. Run `ggplot2::ggplot(mpg, aes(x = displ, y = cty))`. Why is the data not plotted?
-2. What does the `drv` variable describe? Read the help for mpg data set to find out by running `?mpg`
-3. Make a scatter plot of `hwy` vs. `cty`
-4. Make a scatter plot of urban fuel consumption vs engine size (displacement). 
+**1.1** Run `ggplot2::ggplot(mpg, aes(x = displ, y = cty))`. Why is the data not plotted?
+
+**1.2** What does the `drv` variable describe? Read the help for mpg data set to find out by 
+running `?mpg`
+
+**1.3** Make a scatter plot of `hwy` vs. `cty`
+
+**1.4** Make a scatter plot of urban fuel consumption vs engine size (displacement). 
 
 ### Note
 
@@ -171,7 +178,9 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
 
 ---
 
-ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete colours, continuous variables get a continuous colour scale. These can be customised using `scale_` functions (shown later).
+ggplot2 looks at the data type to set a default colour scale - categorical variables get discrete 
+colours, continuous variables get a continuous colour scale. These can be customised using `scale_` 
+functions (shown later).
 
 ```{r, fig.height=4, fig.width=8}
 # ggplot2 looks at the data type to set a default colour scale
@@ -181,14 +190,17 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = year)) +
 
 ---
 
-You could also use the point shape to distinguish between categories. For example, we use it here in addition to colour to show the vehicle class. 
+You could also use the point shape to distinguish between categories. For example, we use it here 
+in addition to colour to show the vehicle class. 
 
 ```{r, fig.height=4, fig.width=8}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = class)) +
   ggplot2::geom_point()
 ```
 
-But note there is a problem: suv is missing from the plot because by default, shape only supports six categories (you can override this manually). Some aesthetics are only suitable in certain situations.
+But note there is a problem: suv is missing from the plot because by default, shape only supports 
+six categories (you can override this manually). Some aesthetics are only suitable in certain 
+situations.
 
 ## Scale functions
 
@@ -217,34 +229,29 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ## Exercises: Section 2
 
-### 1
+2.1 What's wrong with this code? Why aren't the points blue?
 
-- What's wrong with this code? Why aren't the points blue?
-
-```{r, fig.height=3, fig.width=5}
+```{r, fig.height=2, fig.width=7}
 # What's wrong with this code? Why aren't the points blue?
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = "blue")) +
   ggplot2::geom_point()
 ```
 
----
-
-### 2 
-- Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave 
+2.2  Map a continuous variable to `colour`, `size` and `shape`. How do these aesthetics behave 
 differently for categorical vs. continuous variables? Hint: use `dplyr::glimpse(mpg)` to identify 
 variable types.
 
-### 3
-- What happens if you map the same variable to multiple aesthetics?
+2.3 What happens if you map the same variable to multiple aesthetics?
 
-### 4
-- What happens if you map an aesthetic to something other than a variable name, like a Boolean statement `aes(colour = displ < 5)`
+2.4 What happens if you map an aesthetic to something other than a variable name, like a Boolean 
+statement `aes(colour = displ < 5)`
 
 ## Faceting (small multiples)
 
 Faceting generates subplots for different values of a data variable.
 
-`ggplot2::facet_wrap()` splits the data by the specified variable and wraps the subplots into a grid.
+`ggplot2::facet_wrap()` splits the data by the specified variable and wraps the subplots into a 
+grid.
 
 ```{r, fig.height=3}
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
@@ -264,18 +271,6 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::facet_grid(rows = vars(drv), cols = vars(class))
 ```
 
-## Interactive plots - the plotly package
-
-The [plotly](https://github.com/plotly/plotly.R) package can be used to convert ggplot2 static plots into interactive plots.
-
-```{r, fig.height=3.5, fig.width=7}
-# Use ggplotly() to create a plotly interactive chart
-plot <- ggplot2::ggplot(data = mpg, aes(x = displ, y = cty, colour = class)) +
-  ggplot2::geom_point() 
-plotly::ggplotly(plot)
-```
-
-Plotly objects can also be created directly. (Beyond the scope of this course.)
 
 ## Part 2
 
@@ -285,69 +280,44 @@ The topics for the second part will include:
 - Chart Positioning 
 - Themes, titles and Multiple Plots
 
-## Avoiding overplotting
-
-What is wrong with this plot?
-
-```{r, fig.height=3}
-# What is wrong with this plot?
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_point()
-```
-
----
-
-Because there are multiple observations, some are **overplotted**. To correct this, you can add some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit of a compromise - you either have a chart that is accurate but suffers from over plotting, or one that contains some random noise but reveals the size of the data.
-
-```{r, fig.height=3}
-# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
-# some random noise to the data with `position="jitter"` or `geom_jitter`.
-ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::geom_point()
-```
-
-## Fitted lines
-
-`ggplot2::geom_smooth()` takes data points and returns a regression model with confidence intervals. For example, if we just replace `ggplot2::geom_point()` with `ggplot2::geom_smooth()`, we get a loess curve.  
-
-```{r, fig.height=3}
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth()
-```
-
----
-
-We can add the points as well, using the + operator; and have added a line break using `ggplot2::geom_line()` with a constant x value (this can be used for example to show a significant event in a time series). Note that the order of layers determines their order on the plot. As points are after the smooth line, they will be drawn on top (and obscure) the line. 
-
-```{r, fig.height=3}
-# We can add the points as well, using the + operator
-ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  ggplot2::geom_smooth() +
-  ggplot2::geom_point() +
-  ggplot2::geom_line(aes(x = 4.5))
-```
-
-
 
 ## Bar charts
 Counts of a single discrete variable.
 
+If you have flat data, you can use the `ggplot2::geom_bar()` geom to produce a bar chart. This geom
+uses a "count" statistical transformation to turn the flat data into counts by group.
+
+```{r}
+# Flat data
+head(mpg)
+```
+
+## A bar chart from flat data
 ```{r, fig.height=3, fig.width=9}
-# Bar charts counting rows in the data
-ggplot2::ggplot(data = mpg, aes(x = class)) +
+# Bar chart counting rows in the data
+ggplot2::ggplot(mpg, aes(x = class)) +
   ggplot2::geom_bar()
 ```
 
 ---
 
-Bar charts from tabulated data.
+If you have an existing tabulation, you can use the `ggplot2::geom_col()` geom to produce a bar 
+chart. This geom uses a "identity" statistical transformation to map the values to the shape.
+
+```{r, fig.height=3, fig.width=9}
+# Sometimes you might start with tabulated, rather than flat data
+mpg_summary <- mpg |>
+  dplyr::group_by(class) |> 
+  dplyr::summarise(count = dplyr::n()) 
+
+head(mpg_summary)
+```
+
+## A bar chart from tabulated data
 
 ```{r, fig.height=3, fig.width=9}
 # Bar charts from tabulated data
-mpg |>
-  dplyr::group_by(class) |> 
-  dplyr::summarise(count = dplyr::n()) |> 
+mpg_summary |> 
   ggplot2::ggplot(aes(x = class, y = count)) +
   ggplot2::geom_col() 
 ```
@@ -357,26 +327,56 @@ mpg |>
 
 How could this chart be made easier to use?
 
-Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the lines around the bar.
+Note: With bar charts, `fill =` determines the colour inside the bar and `colour =` controls the 
+lines around the bar.
 
-```{r, fig.height=3, fig.width=9}
+```{r, fig.height=3, fig.width=10}
 # Bar chart positioning
-ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
+  ggplot2::geom_bar(colour = 'black') 
 ```
 
 ---
 
-By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. You can control this with the position argument. 'dodge' places bars next to each other, whilst 'fill' makes them all the same length (to allow for easier comparison).
+By default bars are "stacked" on top of each other. This makes comparing proportions rather 
+difficult. You can control this with the position argument. 'dodge' places bars next to each other, 
+whilst 'fill' makes them all the same length (to allow for easier comparison).
 
-```{r, fig.height=3}
+```{r, fig.height=3, fig.width=10}
 # By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
 # You can control this with the position argument.
-ggplot2::ggplot(data = mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black', position = 'dodge') +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0, hjust = 1))
+ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
+  ggplot2::geom_bar(colour = 'black', position = 'dodge') 
 ```
+
+
+## Fitted lines
+
+The `ggplot2::geom_smooth()` geom takes data points and returns a regression model with confidence 
+intervals. For example, when plotting `hwy ~ displ` if we use `ggplot2::geom_smooth()` we get a 
+loess curve. Note that we are plotting a `ggplot2::geom_point()` geometry as well using the `+` 
+operator for each additional layer. The order of layers determines their order on the plot. As 
+points are before the smooth line, they will be drawn under it. 
+
+```{r, fig.height=3}
+# Add a fitted line to a scatter plot
+ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth()
+```
+
+---
+
+We can manually control the type of smooth fit with the `method` argument. For example if we set it 
+to `method = "lm"` we fit a linear model. For more information see `?ggplot2::geom_smooth()`.
+
+```{r, fig.height=3}
+# Ensure the fitted line is a linear model
+ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm")
+```
+
 
 ## Density plots and histograms
 
@@ -384,7 +384,7 @@ Histograms are a great tool for summarizing and describing a continuous variable
 
 ```{r, fig.height=3}
 # Histogram
-ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+ggplot2::ggplot(mpg, aes(x = hwy)) +
   ggplot2::geom_histogram(bins = 30) 
 ```
 
@@ -394,7 +394,7 @@ Density plots are another nice way to visualise a continuous variable.
 
 ```{r, fig.height=3}
 # Density plot
-ggplot2::ggplot(data = mpg, aes(x = hwy)) +
+ggplot2::ggplot(mpg, aes(x = hwy)) +
   ggplot2::geom_density() 
 ```
 
@@ -404,7 +404,7 @@ We can use the `alpha` argument to reveal overlapping areas if we plot by group
 
 ```{r, fig.height=3}
 # Overlapping density plots
-ggplot2::ggplot(data = mpg, aes(x = hwy, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = hwy, fill = drv)) +
   ggplot2::geom_density(alpha = 0.5) 
 ```
 
@@ -412,7 +412,7 @@ ggplot2::ggplot(data = mpg, aes(x = hwy, fill = drv)) +
 
 ```{r, fig.height=3}
 # Box plots
-ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
   ggplot2::geom_boxplot(fill = "red")
 ```
 
@@ -420,36 +420,81 @@ ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
 
 ```{r, fig.height=3}
 # Violin plots
-ggplot2::ggplot(data = mpg, aes(x = drv, y = hwy)) +
+ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
   ggplot2::geom_violin(aes(fill = drv))
 ```
+
+
+## Avoiding overplotting
+
+What is wrong with this plot?
+
+```{r, fig.height=3}
+# What is wrong with this plot?
+ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_point()
+```
+
+---
+
+Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+some random noise to the data with `position = "jitter"` or `ggplot2::geom_jitter()`. This is a bit 
+of a compromise - you either have a chart that is accurate but suffers from over plotting, or one 
+that contains some random noise but reveals the size of the data.
+
+```{r, fig.height=3}
+# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
+# some random noise to the data with `position = "jitter"` or `geom_jitter`.
+ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
+  ggplot2::geom_jitter(colour = 'red') +
+  ggplot2::geom_point()
+```
+
 
 ## Line charts
 
 US unemployment population data
 
-```{r, fig.height=3}
+```{r, fig.height=3.5, fig.width=10}
 # Line charts
 ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()
 ```
 
+---
+
+You can also use the `ggplot2::geom_line()` geometry with a constant x value to show a significant 
+event in a time series. For example here we mark the start of 2008.
+
+```{r, fig.height=3.5, fig.width=10}
+# Line charts
+ggplot2::economics |> 
+  ggplot2::ggplot(aes(x = date, y = unemploy)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_line(aes(x = as.Date("2008-01-01")), col = "blue")
+```
+
+
+
 
 ## Exercises: Section 3
 
-1. Using the `mpg` dataset create a histogram of `cty`. What impact do different values for the `bins` argument have?
+**3.1** Using the `mpg` dataset create a histogram of `cty`. What impact do different values for 
+the `bins` argument have?
 
-2. Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping regions visible.
+**3.2** Make a density plot of `cty` by `drv`. Use the `alpha` argument to make the overlapping 
+regions visible.
 
-3. Recreate the US unemployed population line graph. Add another line to show the total population. 
+**3.3** Recreate the US unemployed population line graph. Add another line to show the total 
+population. 
 
 *Hint* You will need to supply a new geom layer with a new aesthetic mapping.
 
 # Labels, Themes, and multiple plots
 
-## Lables
-Labels and titles can be added using the `labs()` layer.
+## Labels
+Labels and titles can be added using the `ggplot2::labs()` layer.
 
 ```{r, fig.height=3}
 # Themes, titles, and multiple plots
@@ -460,18 +505,19 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group 
 
 ## Multiple plots
 
-Plots can be arranged using the `grid.arrange` command from the `gridExtra` package. First we store the plots in a variable using the `<-` operator.
+Plots can be arranged using the `grid.arrange` command from the {gridExtra} package. First we store 
+the plots in a variable using the `<-` operator.
 ```{r}
 # Multiple plots
-plot1 <-
-  ggplot2::ggplot(data = mpg, aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
+plot1 <- mpg |>
+  ggplot2::ggplot(aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar(fill = "red") +
   ggplot2::labs(title = "Proportion of sample by engine type", 
                 x = "Number of cylinders", 
                 y = "Proportion")
 
-plot2 <-
-  ggplot2::ggplot(data = mpg, aes(x = cty, y = hwy)) +
+plot2 <- mpg |>
+  ggplot2::ggplot(aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
   ggplot2::labs(title = "Fuel efficiency comparison", 
                 subtitle = "Note: the points are jittered", 
@@ -503,7 +549,9 @@ gridExtra::grid.arrange(
 
 ---
 
-You can also make your own custom themes; plot are made up of four elements `element_text`, `element_line`, `element_rect`, and `element_blank`. Plots can be modified using these element commands. For example:
+You can also make your own custom themes; plot are made up of four elements `element_text`, 
+`element_line`, `element_rect`, and `element_blank`. Plots can be modified using these element 
+commands. For example:
 
 ```{r, fig.height=3}
 # You can also make your own custom themes
@@ -530,7 +578,7 @@ Pre-built MoJ and Government Analysis Function themes and colour schemes are ava
 
 ```{r, fig.height=3}
 # MoJ colour scheme
-ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   ggplot2::geom_bar(position = "dodge") +
   mojchart::scale_fill_moj(n = 3) +
   mojchart::theme_gss(xlabel = TRUE)
@@ -541,7 +589,7 @@ ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
 The Government Analysis Function colour scheme is accessible.
 ```{r, fig.height=3}
 # Accessible colour scheme
-ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
+ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   ggplot2::geom_bar(position = "dodge") +
   mojchart::scale_fill_moj(n = 3, scheme = "govanal_bars") +
   mojchart::theme_gss(xlabel = TRUE)
@@ -549,30 +597,56 @@ ggplot2::ggplot(data = mpg, aes(x = class, fill = drv)) +
 
 ## Exercises: Section 4
 
-1. Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a theme_minimal; and colour the points based on the number of cylinders the car has.
-    + *Hint*: here is some code to start you off:
-    ```{r, eval=FALSE, results=FALSE}
-    ggplot2::ggplot(data = mpg) +
-       ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
-    ```
-2. Change the title and axis labels to something sensible based on what the chart is showing.
-3. Create a custom theme changing:
-    + major gridlines to grey, dashed
-    + removing minor gridlines
-    + x and y axis text to black, pt 10, italic
-    + move the legend position to the bottom of the plot
-4. Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in colour schemes. 
-    + (Number 4 may be homework if we are running out of time!)
+**4.1** Create a basic scatter plot showing highway fuel efficiency vs city fuel efficiency. Add a 
+theme_minimal; and colour the points based on the number of cylinders the car has.
+
+*Hint*: here is some code to start you off:
+
+```{r, eval=FALSE, results=FALSE}
+ggplot2::ggplot(mpg) +
+   ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
+```
+
+**4.2** Change the title and axis labels to something sensible based on what the chart is showing.
+
+**4.3** Create a custom theme changing:
+  
+  * major gridlines to grey, dashed
+  * removing minor gridlines
+  * x and y axis text to black, pt 10, italic
+  * move the legend position to the bottom of the plot
+
+**4.4** Instead of the custom theme, use the gss theme from `mojchart` and one of the built-in 
+colour schemes. 
+
 
 ## Saving plots
 
-Most of the time plots will be created directly into an R Markdown output, or a shiny app. However plots can also be saved as image (png) file:
+Most of the time plots will be created directly into an R Markdown output, or a shiny app. However 
+plots can also be saved as image (png) file:
 
 * 'Export' button in RStudio viewer
 
-* `ggplot2::ggsave(filename = "plotname.png", plot = myplot)` - saves the plot into your current working directory in R Studio. Can then be downloaded from the platform via 'More' -> 'Export...'
+* `ggplot2::ggsave(filename = "plotname.png", plot = myplot)` - saves the plot into your current 
+working directory in R Studio. Can then be downloaded from the platform via 'More' -> 'Export...'
 
 In R Markdown or R Shiny: ggplot call will create the plot in situ.
+
+
+## Interactive plots - the plotly package
+
+The [plotly](https://github.com/plotly/plotly.R) package can be used to convert ggplot2 static 
+plots into interactive plots.
+
+```{r, fig.height=3.5, fig.width=7}
+# Use ggplotly() to create a plotly interactive chart
+plot <- ggplot2::ggplot(mpg, aes(x = displ, y = cty, colour = class)) +
+  ggplot2::geom_point() 
+
+plotly::ggplotly(plot)
+```
+
+Plotly objects can also be created directly. (Beyond the scope of this course.)
 
 ## Resources
 
