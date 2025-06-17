@@ -40,3 +40,4 @@ code in `render_r_code_from_source.R`.
 * Solutions to the exercises are found in the `solutions.Rmd` file (knitted to `solutions.html`). 
 The HTML solutions are not automatically deployed so to use them you will either need to open them
 in R studio or download them from GitHub and view them in a browser.
+* If a new package or minimum package versionis required, please updated the DESCRIPTION file.
