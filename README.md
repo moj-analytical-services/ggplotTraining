@@ -26,7 +26,8 @@ through the material by yourself please leave feedback about the material
 * [Ensure you have access to the Analytical Platform](https://user-guidance.analytical-platform.service.justice.gov.uk/get-started.html#quickstart-guide).
 * [Ensure you have linked RStudio and GitHub with an SSH key](https://user-guidance.analytical-platform.service.justice.gov.uk/github/set-up-github.html).
 * [Clone](https://user-guidance.analytical-platform.service.justice.gov.uk/github/rstudio-git.html#work-with-git-in-rstudio) this repo as an RStudio project.
-* Run `renv::restore()` to install the required R packages.
+* Run `install.packages("renv")`
+* Run `renv::install()` to install the packages declared in the `DESCRIPTION` file.
 
 <br>
 
