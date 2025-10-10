@@ -33,11 +33,18 @@ through the material by yourself please leave feedback about the material
 
 ## For presenters
 
-* `index.Rmd` is the markdown for the presentation slides (knitted to `index.html`).
-* The Github.io page with the presentation should deploy after each PR to the `master` branch.
+* `index.Rmd` is the markdown for the presentation slides (knitted to `index.html`). You will need
+to knit them manually in RStudio and push the changes. You may need to disable the large file 
+pre-commit hook for this (see below). 
+* The Github.io page with the presentation should deploy after each PR to the `main` branch.
 * If changes are made to the slides please recreate the `R_code_participant.R` file by running the 
 code in `render_r_code_from_source.R`.
 * Solutions to the exercises are found in the `solutions.Rmd` file (knitted to `solutions.html`). 
 The HTML solutions are not automatically deployed so to use them you will either need to open them
 in R studio or download them from GitHub and view them in a browser.
-* If a new package or minimum package versionis required, please updated the DESCRIPTION file.
+* If a new package or minimum package version is required, please updated the DESCRIPTION file.
+* Disabling the large file pre-commit hook: 
+    * Ensure hidden files are visible (in the `Files` tab in the bottom right Rstudio pane, select 
+    the `More` cog wheel and check that `Show Hidden Files` is ticked).
+    * Navigate to `.git/hooks/pre-commit`
+    * Increase the file size (edit the line `FILE_SIZE_LIMIT=5  # In MB` and save)
