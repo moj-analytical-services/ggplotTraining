@@ -204,7 +204,7 @@ ggplot2::ggplot(data = mpg) +
   ggplot2::labs(title = "Fuel efficiency comparison between city and highway", 
                 x = "Highway efficiency", 
                 y = "City efficiency") +
-  mojchart::scale_colour_moj(n = 4, scheme = "govanal_bars") +
+  mojchart::scale_colour_moj(n = 4, palette = "govanal_bars") +
   mojchart::theme_gss(xlabel = TRUE)
 
 ```
