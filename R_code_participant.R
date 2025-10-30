@@ -16,13 +16,13 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy)) +
   ggplot2::geom_point() +
   ggplot2::geom_point(aes(x = displ, y = cty), colour = "blue")
 
-## # chart template
-## ggplot(data = <DATA>, aes(<MAPPINGS>) )  +
-##   <GEOM_FUNCTION> +
-##   <COORDINATE_FUNCTION> +
-##   <FACET_FUNCTION> +
-##   <SCALE_FUNCTION> +
-##   <THEME FUNCTION>
+# # chart template
+# ggplot(data = <DATA>, aes(<MAPPINGS>) )  +
+#   <GEOM_FUNCTION> +
+#   <COORDINATE_FUNCTION> +
+#   <FACET_FUNCTION> +
+#   <SCALE_FUNCTION> +
+#   <THEME FUNCTION>
 
 # Aesthetics
 ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, colour = class)) +
@@ -36,7 +36,7 @@ ggplot2::ggplot(data = mpg, aes(x = displ, y = hwy, shape = class, colour = clas
   ggplot2::geom_point()
 
 # Use scale_ functions to set properties of the aesthetics
-dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) |>
+dplyr::filter(mpg, manufacturer %in% c('audi', 'volkswagen')) |> 
   ggplot2::ggplot(aes(x = displ, y = hwy, colour = manufacturer)) +
   ggplot2::geom_point(size = 3) +
   ggplot2::scale_colour_manual(values = c("audi" = "#12436D", "volkswagen" = "#28A197")) +
@@ -67,24 +67,24 @@ ggplot2::ggplot(mpg, aes(x = class)) +
 
 # Sometimes you might start with tabulated, rather than flat data
 mpg_summary <- mpg |>
-  dplyr::group_by(class) |>
-  dplyr::summarise(count = dplyr::n())
+  dplyr::group_by(class) |> 
+  dplyr::summarise(count = dplyr::n()) 
 
 head(mpg_summary)
 
 # Bar charts from tabulated data
-mpg_summary |>
+mpg_summary |> 
   ggplot2::ggplot(aes(x = class, y = count)) +
-  ggplot2::geom_col()
+  ggplot2::geom_col() 
 
 # Bar chart positioning
 ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black')
+  ggplot2::geom_bar(colour = 'black') 
 
-# By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult.
+# By default bars are "stacked" on top of each other. This makes comparing proportions rather difficult. 
 # You can control this with the position argument.
 ggplot2::ggplot(mpg, aes(x = manufacturer, fill = class)) +
-  ggplot2::geom_bar(colour = 'black', position = 'dodge')
+  ggplot2::geom_bar(colour = 'black', position = 'dodge') 
 
 # Add a fitted line to a scatter plot
 ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -98,15 +98,15 @@ ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
 
 # Histogram
 ggplot2::ggplot(mpg, aes(x = hwy)) +
-  ggplot2::geom_histogram(bins = 30)
+  ggplot2::geom_histogram(bins = 30) 
 
 # Density plot
 ggplot2::ggplot(mpg, aes(x = hwy)) +
-  ggplot2::geom_density()
+  ggplot2::geom_density() 
 
 # Overlapping density plots
 ggplot2::ggplot(mpg, aes(x = hwy, fill = drv)) +
-  ggplot2::geom_density(alpha = 0.5)
+  ggplot2::geom_density(alpha = 0.5) 
 
 # Box plots
 ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
@@ -120,19 +120,19 @@ ggplot2::ggplot(mpg, aes(x = drv, y = hwy)) +
 ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_point()
 
-# Because there are multiple observations, some are **overplotted**. To correct this, you can add
+# Because there are multiple observations, some are **overplotted**. To correct this, you can add 
 # some random noise to the data with `position = "jitter"` or `geom_jitter`.
 ggplot2::ggplot(mpg, aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
   ggplot2::geom_point()
 
 # Line charts
-ggplot2::economics |>
+ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line()
 
 # Line charts
-ggplot2::economics |>
+ggplot2::economics |> 
   ggplot2::ggplot(aes(x = date, y = unemploy)) +
   ggplot2::geom_line() +
   ggplot2::geom_line(aes(x = as.Date("2008-01-01")), col = "blue")
@@ -146,16 +146,16 @@ ggplot2::ggplot(data = mpg, aes(x = class, y = ggplot2::after_stat(prop), group 
 plot1 <- mpg |>
   ggplot2::ggplot(aes(x = cyl, y = ggplot2::after_stat(prop), group = 1)) +
   ggplot2::geom_bar(fill = "red") +
-  ggplot2::labs(title = "Proportion of sample by engine type",
-                x = "Number of cylinders",
+  ggplot2::labs(title = "Proportion of sample by engine type", 
+                x = "Number of cylinders", 
                 y = "Proportion")
 
 plot2 <- mpg |>
   ggplot2::ggplot(aes(x = cty, y = hwy)) +
   ggplot2::geom_jitter(colour = 'red') +
-  ggplot2::labs(title = "Fuel efficiency comparison",
-                subtitle = "Note: the points are jittered",
-                x = "City fuel efficiency",
+  ggplot2::labs(title = "Fuel efficiency comparison", 
+                subtitle = "Note: the points are jittered", 
+                x = "City fuel efficiency", 
                 y = "Highway fuel efficiency")
 
 
@@ -165,7 +165,7 @@ gridExtra::grid.arrange(plot1, plot2, nrow = 1)
 
 # Themes
 gridExtra::grid.arrange(
-  plot2 + ggplot2::theme_bw(), plot2 + ggplot2::theme_classic(),
+  plot2 + ggplot2::theme_bw(), plot2 + ggplot2::theme_classic(), 
   plot2 + ggplot2::theme_dark(), plot2 + ggplot2::theme_light())
 
 # You can also make your own custom themes
@@ -192,11 +192,11 @@ ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   mojchart::scale_fill_moj(n = 3, palette = "govanal_bars") +
   mojchart::theme_gss(xlabel = TRUE)
 
-## ggplot2::ggplot(mpg) +
-##    ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
+# ggplot2::ggplot(mpg) +
+#    ggplot2::geom_point(mapping = aes(x = hwy, y = cty, colour = as.factor(cyl)))
 
 # Use ggplotly() to create a plotly interactive chart
 plot <- ggplot2::ggplot(mpg, aes(x = displ, y = cty, colour = class)) +
-  ggplot2::geom_point()
+  ggplot2::geom_point() 
 
 plotly::ggplotly(plot)
