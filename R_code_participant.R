@@ -189,7 +189,7 @@ ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
 # Accessible colour scheme
 ggplot2::ggplot(mpg, aes(x = class, fill = drv)) +
   ggplot2::geom_bar(position = "dodge") +
-  mojchart::scale_fill_moj(n = 3, scheme = "govanal_bars") +
+  mojchart::scale_fill_moj(n = 3, palette = "govanal_bars") +
   mojchart::theme_gss(xlabel = TRUE)
 
 ## ggplot2::ggplot(mpg) +
